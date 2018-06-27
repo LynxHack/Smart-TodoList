@@ -60,7 +60,7 @@ module.exports = {
       .from('todos')
       .asCallback(cb)
   
-  }
+  },
   
   
   getTodo: function (id, cb) {
