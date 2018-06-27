@@ -1,4 +1,5 @@
 module.exports = {
+
   newTodo: function (name, due_date, types_id, users_id) {
 
     knex.insert({
@@ -14,7 +15,8 @@ module.exports = {
       });
   },
 
-deleteTodo: function (id) {
+
+  deleteTodo: function (id) {
 
     knex('todos')
       .where({ id: id })
@@ -25,7 +27,8 @@ deleteTodo: function (id) {
 
   },
 
-editTodo: function (id, name, due_date, types_id, users_id) {
+
+  editTodo: function (id, name, due_date, types_id, users_id) {
 
     knex('todos')
       .where({ id: id })
@@ -40,10 +43,28 @@ editTodo: function (id, name, due_date, types_id, users_id) {
       });
   },
 
-toggleIsDoneTodo: function (id) { 
-  knex.raw(`UPDATE todos SET is_done = NOT is_done WHERE id = ${id}`)
-  .then(function (id) { 
-    console.log(`Todo ${id} is_done changed`);
-   })
- }
+
+  toggleIsDoneTodo: function (id) {
+
+    const idInt = id;
+    knex.raw(`UPDATE todos SET is_done = NOT is_done WHERE id = ${id}`)
+      .then(function () {
+        console.log(`Todo ${idInt} is_done changed`);
+      })
+  },
+
+
+  getAllTodo: function () { 
+
+    knex.raw(`SELECT * FROM todos`).then(function (arrayOfTodos) {
+      return arrayOfTodos;
+    });
+   },
+
+
+  getTodo: function (id) { 
+
+    knex('todos').where('id', id);
+
+   }
 }
