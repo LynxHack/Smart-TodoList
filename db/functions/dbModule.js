@@ -54,17 +54,21 @@ module.exports = {
   },
 
 
-  getAllTodo: function () { 
+  getAllTodo: function (cb) {
 
-    knex.raw(`SELECT * FROM todos`).then(function (arrayOfTodos) {
-      return arrayOfTodos;
-    });
-   },
-
-
-  getTodo: function (id) { 
-
-    knex('todos').where('id', id);
-
-   }
+    return knex.select()
+      .from('todos')
+      .asCallback(cb)
+  
+  }
+  
+  
+  getTodo: function (id, cb) {
+  
+    return knex.first('*')
+      .from('todos')
+      .where('id', id)
+      .asCallback(cb)
+  
+  }
 }
