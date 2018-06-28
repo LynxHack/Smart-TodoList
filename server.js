@@ -51,6 +51,8 @@ var restaurantname = 'pizza hut';
 var latitude = 49; //replace this with coordinate obtain from client
 var longitude = -123; //replace this with coordinate obtain from client
 var limit = 3;  //default 20, max 50;
+
+//test
 yelpsearch(restaurantname, latitude, longitude, limit);
 function yelpsearch(rest_name, lat, long, numitems){
   const restaurantname = rest_name.split(' ').join('+');
@@ -62,8 +64,14 @@ function yelpsearch(rest_name, lat, long, numitems){
     },
   };
   request(options, function(err, res, body){
-    var data = JSON.parse(body);
-    console.log(data);
+    if(err){console.log(err);}
+    const data = JSON.parse(body);
+    const name = data.businesses[0].name;
+    const rating = data.businesses[0].rating;
+    const location = data.businesses[0].location.display_address.join(', ');
+    const phone = data.businesses[0].phone;
+
+    console.log(name, rating, location, phone);
   });
 }
 
