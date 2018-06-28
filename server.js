@@ -47,13 +47,12 @@ app.get("/", (req, res) => {
 var request = require('request');
 var yelpkey = process.env.YELPKEY;
 
-var restaurantname = 'pizza hut';
-var latitude = 49; //replace this with coordinate obtain from client
-var longitude = -123; //replace this with coordinate obtain from client
-var limit = 3;  //default 20, max 50;
+// var restaurantname = 'pizza hut';
+// var latitude = 49; //replace this with coordinate obtain from client
+// var longitude = -123; //replace this with coordinate obtain from client
+// var limit = 3;  //default 20, max 50;
+//yelpsearch(restaurantname, latitude, longitude, limit);
 
-//test
-yelpsearch(restaurantname, latitude, longitude, limit);
 function yelpsearch(rest_name, lat, long, numitems){
   const restaurantname = rest_name.split(' ').join('+');
   var options = {
@@ -76,9 +75,10 @@ function yelpsearch(rest_name, lat, long, numitems){
   });
 }
 
-var imdbkey = process.env.IMDBKEY;
-var moviename = 'titanic';
+//var moviename = 'titanic';
 //moviesearch(moviename, imdbkey);
+
+var imdbkey = process.env.IMDBKEY;
 function moviesearch(moviestring, imdbkey){
   const moviename = moviestring.split(' ').join('+');
   request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
@@ -102,8 +102,8 @@ var test9 = 'fresh slice';
 var wolframkey = process.env.WOLFRAMKEY;
 
 //Test function call
-categorize(test0, wolframkey)
-.then((result) => {console.log(result)});
+// categorize(test0, wolframkey)
+// .then((result) => {console.log(result)});
 
 // To improve list
 const store   = ['financ', 'restaurant', 'food', 'eat', 'company'];
@@ -149,6 +149,28 @@ function categorize(search, wolframkey){
     });
   });
 }
+
+var parseString = require('xml2js').parseString
+const goodreadskey = process.env.GOODREADSKEY;
+function booksearch(bookname, key){
+  const bookstring = bookname.split(' ').join('+');
+  const url = `https://www.goodreads.com/search.xml?key=${key}&q=${bookstring}`;
+  request(url, (error, response, body) => {
+      if(error) reject(error);
+      parseString(body, function (err, result) {
+        const image = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url[0];
+        const author = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
+        const title = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title[0];
+        const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
+        const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
+        const url = `https://www.goodreads.com/book/show/${id};`
+        console.log(title, author, rating, image, url);
+        //Modify to output to client
+      });
+  });
+}
+//booksearch('Pride and Prejudice', goodreadskey);
+
 
 const scraper = require('google-search-scraper');
 function googlesearch(searchstring, numresults){
