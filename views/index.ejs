@@ -7,11 +7,195 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+    <!-- Boostrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <script type="text/javascript" src="/scripts/animations.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <nav id="nav_bar">
+      <!-- <span class="hiddenName">TODO List</span> -->
+      <div id="logo">
+        <a href="#"><img src="documents/ToDoLogo.png" style="overflow:left"></a>
+      </div>
+      <a href="#movies_image" id="movie_menu_link" class="active">To Watch</a>
+      <a href="#products_image" id="product_menu_link">To Buy</a>
+      <a href="#books_image" id="book_menu_link">To Read</a>
+      <a href="#food_image" id="food_menu_link">To Eat</a>
+
+      <div class="dropdown">
+        <a href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          More Todo
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="">Add Todo</a></li>
+          <li><a href="">Log in</a></li>
+          <li><a href="">Register</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div id="movies_image">
+        <h1 class="image_text"> Films/Series To Watch </h2>
+      </div>
+      <div class="movies">
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <div class="card" >
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+      </div>
+
+      <div id="products_image">
+        <h1 class="image_text"> Products To Buy </h2>
+      </div>
+      <div id="products">
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+      </div>
+
+      <div id="books_image">
+        <h1 class="image_text"> Books To Read </h2>
+      </div>
+      <div id="books">
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+      </div>
+
+      <div id="food_image">
+        <h1 class="image_text"> Restaurants&Cafes To Eat</h2>
+      </div>
+      <div id="food">
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+        <p>I'm a placeholder</p>
+      </div>
+
+      <footer>
+        <p style="color:white"> some copyright crap </p>
+      </footer>
+
+    </main>
   </body>
 </html>
