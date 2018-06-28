@@ -70,8 +70,9 @@ function yelpsearch(rest_name, lat, long, numitems){
     const rating = data.businesses[0].rating;
     const location = data.businesses[0].location.display_address.join(', ');
     const phone = data.businesses[0].phone;
-
-    console.log(name, rating, location, phone);
+    const latitude = data.businesses[0].coordinates.latitude;
+    const longitude = data.businesses[0].coordinates.longitude;
+    console.log(name, rating, location, phone, latitude, longitude);
   });
 }
 
