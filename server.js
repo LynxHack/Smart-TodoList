@@ -78,7 +78,7 @@ function yelpsearch(rest_name, lat, long, numitems){
 
 var imdbkey = process.env.IMDBKEY;
 var moviename = 'titanic';
-moviesearch(moviename, imdbkey);
+//moviesearch(moviename, imdbkey);
 function moviesearch(moviestring, imdbkey){
   const moviename = moviestring.split(' ').join('+');
   request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
@@ -87,7 +87,6 @@ function moviesearch(moviestring, imdbkey){
     //insert something to send info back to client end
   });
 };
-
 
 var test0 = 'bible'; 
 var test1 = 'Harry Potter';
@@ -102,51 +101,81 @@ var test9 = 'fresh slice';
 
 var wolframkey = process.env.WOLFRAMKEY;
 
-categorize(test3, wolframkey);
+//Test function call
+categorize(test0, wolframkey)
+.then((result) => {console.log(result)});
+
+// To improve list
+const store   = ['financ', 'restaurant', 'food', 'eat', 'company'];
+const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word'];
+const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch'];
+
+function classify(categories){
+  let result = "product"; 
+  const string = categories[0].toLowerCase();
+
+  //if the first result does not have a defined category, try others
+  if(!store.concat(book, movietv).some(e => string.includes(e)))
+    string = categories.join(',').toLowerCase();
+  if(store.some(e => string.includes(e)))
+    result = "store";
+  else if(movietv.some(e => string.includes(e)))
+    result = "movie_tv";
+  else if(book.some(e => string.includes(e)))
+    result = "book";
+  
+  return result;
+}
+
 function categorize(search, wolframkey){
-  var stringquery = search.split(' ').join('+');
-  request(`https://api.wolframalpha.com/v2/query?input=${stringquery}&format=image,plaintext&output=JSON&appid=${wolframkey}`, function (error, response, body) {
-    if(error) throw error;
+  return new Promise((resolve, reject) => {
+    var stringquery = search.split(' ').join('+');
+    request(`https://api.wolframalpha.com/v2/query?input=${stringquery}&format=image,plaintext&output=JSON&appid=${wolframkey}`, function (error, response, body) {
+      if(error) reject(error);
 
-    var parsedresponse = JSON.parse(response.body);
-    var categories0 = [];
-    var categories1 = parsedresponse.queryresult.datatypes.split(',');
+      var parsedresponse = JSON.parse(response.body);
+      var categories0 = [];
+      var categories1 = parsedresponse.queryresult.datatypes.split(',');
 
-    if(parsedresponse.queryresult.hasOwnProperty('assumptions')){
-      var assumptions = parsedresponse.queryresult.assumptions;
-      var result = Array.isArray(assumptions) ? assumptions[0].values : assumptions.values;
-      for(var element in result){
-        categories0.push(result[element].name);
+      if(parsedresponse.queryresult.hasOwnProperty('assumptions')){
+        var assumptions = parsedresponse.queryresult.assumptions;
+        var result = Array.isArray(assumptions) ? assumptions[0].values : assumptions.values;
+        for(var element in result){
+          categories0.push(result[element].name);
+        }
       }
-    }
-
-    console.log(stringquery);
-    console.log(categories0, categories1);
-    
-    var result = categories0.concat(categories1);
-    console.log(result);
+      var categories = categories0.concat(categories1);
+      resolve(classify(categories));
+    });
   });
 }
 
-
-//google search - TODO it return a json, currently just logs
 const scraper = require('google-search-scraper');
 function googlesearch(searchstring, numresults){
-  const options = {
-    host: 'www.google.ca',
-    query: searchstring,
-    limit: numresults
-  };
-  scraper.search(options, function(err, url, meta) {
-    if(err) throw err;
-    if(url){
-      console.log(url);
-      //meta.title, meta.meta, meta.desc
-    }
-  });
+  return new Promise(function(resolve, reject){
+    const results = [];
+    const options = {
+        host: 'www.google.ca',
+        query: searchstring,
+        limit: numresults
+      };
+      scraper.search(options, function(err, url, meta) {
+        if(err) reject(err);
+        if(url){
+          //console.log(url);
+          results.push(url);
+          //meta.title, meta.meta, meta.desc
+          if(results.length === numresults){
+            resolve(results);
+          }
+        }
+      });
+  });  
 }
-
-//googlesearch('jurassic park amazon', 10);
+//Waits until all results are completed
+// googlesearch('jurassic park amazon.ca', 10)
+// .then((results)=>{console.log(results)})
+// .catch((err) => {console.log(err)});
 
 app.post("/:newtodo", (req, res)=>{
   console.log('hi');
