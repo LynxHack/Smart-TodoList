@@ -1,3 +1,5 @@
+const knex = require('../../knex');
+
 module.exports = {
 
   newTodo: function (name, due_date, types_id, users_id) {
@@ -12,7 +14,8 @@ module.exports = {
       .into('todos')
       .then(function (id) {
         console.log(`Success ${id} entered`);
-      });
+      })
+      .catchReturn();
   },
 
 
@@ -23,13 +26,14 @@ module.exports = {
       .del()
       .then(function (id) {
         console.log(`${id} Deleted`);
-      });
+      })
+      .catchReturn();
 
   },
 
-
+  // Null args or incorrect format will result in data being stored as undefined
   editTodo: function (id, name, due_date, types_id, users_id) {
-
+    
     knex('todos')
       .where({ id: id })
       .update({
@@ -40,7 +44,8 @@ module.exports = {
       })
       .then(function (id) {
         console.log(`${id} modified`);
-      });
+      })
+      .catchReturn();
   },
 
 
@@ -51,24 +56,27 @@ module.exports = {
       .then(function () {
         console.log(`Todo ${idInt} is_done changed`);
       })
+      .catchReturn();
   },
 
-
+  // cb function needs to be used to return array of results
   getAllTodo: function (cb) {
 
     return knex.select()
       .from('todos')
       .asCallback(cb)
-  
+      .catchReturn()
+
   },
-  
-  
+
+  // cb function needs to be used to return results object
   getTodo: function (id, cb) {
-  
+
     return knex.first('*')
       .from('todos')
       .where('id', id)
       .asCallback(cb)
-  
+      .catchReturn()
+
   }
 }
