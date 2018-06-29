@@ -8,7 +8,7 @@ function yelpsearch(rest_name, lat, long, numitems){
     var options = {
       url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
       headers: {
-        'User-Agent': 'request',  
+        'User-Agent': 'request',
         'Authorization': `Bearer ${yelpkey}`
       },
     };
@@ -24,10 +24,10 @@ function yelpsearch(rest_name, lat, long, numitems){
       console.log(name, rating, location, phone, latitude, longitude);
     });
   }
-  
+
   //var moviename = 'titanic';
   //moviesearch(moviename, imdbkey);
-  
+
   var imdbkey = process.env.IMDBKEY;
   function moviesearch(moviestring, imdbkey){
     const moviename = moviestring.split(' ').join('+');
@@ -37,8 +37,8 @@ function yelpsearch(rest_name, lat, long, numitems){
       //insert something to send info back to client end
     });
   };
-  
-  var test0 = 'bible'; 
+
+  var test0 = 'bible';
   var test1 = 'Harry Potter';
   var test2 = 'pizza hut';
   var test3 = 'mcdonalds';
@@ -48,22 +48,22 @@ function yelpsearch(rest_name, lat, long, numitems){
   var test7 = 'avengers';
   var test8 = 'breaking bad';
   var test9 = 'fresh slice';
-  
+
   var wolframkey = process.env.WOLFRAMKEY;
-  
+
   // Test function call
-  categorize(test0, wolframkey)
+  categorize(test8, wolframkey)
   .then((result) => {console.log(result)});
-  
+
   // Identifiers for each category
   const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
   const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word', 'author', 'write', 'writer'];
   const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch', 'series', 'documentary', 'show'];
-  
+
   function classify(categories){
-    let result = "product"; 
+    let result = "product";
     let string = categories[0].toLowerCase();
-  
+
     //if the first result does not have a defined category, try others
     if(!store.concat(book, movietv).some(e => string.includes(e)))
       string = categories.join(',').toLowerCase();
@@ -73,20 +73,20 @@ function yelpsearch(rest_name, lat, long, numitems){
       result = "movie_tv";
     else if(book.some(e => string.includes(e)))
       result = "book";
-    
+
     return result;
   }
-  
+
   function categorize(search, wolframkey){
     return new Promise((resolve, reject) => {
       var stringquery = search.split(' ').join('+');
       request(`https://api.wolframalpha.com/v2/query?input=${stringquery}&format=image,plaintext&output=JSON&appid=${wolframkey}`, function (error, response, body) {
         if(error) reject(error);
-  
+
         var parsedresponse = JSON.parse(response.body);
         var categories0 = [];
         var categories1 = parsedresponse.queryresult.datatypes.split(',');
-  
+
         if(parsedresponse.queryresult.hasOwnProperty('assumptions')){
           var assumptions = parsedresponse.queryresult.assumptions;
           var result = Array.isArray(assumptions) ? assumptions[0].values : assumptions.values;
@@ -99,7 +99,7 @@ function yelpsearch(rest_name, lat, long, numitems){
       });
     });
   }
-  
+
   var parseString = require('xml2js').parseString
   const goodreadskey = process.env.GOODREADSKEY;
   function booksearch(bookname, key){
@@ -120,8 +120,8 @@ function yelpsearch(rest_name, lat, long, numitems){
     });
   }
   //booksearch('Pride and Prejudice', goodreadskey);
-  
-  
+
+
   const scraper = require('google-search-scraper');
   function googlesearch(searchstring, searchsite, numresults){
     return new Promise(function(resolve, reject){
@@ -133,7 +133,7 @@ function yelpsearch(rest_name, lat, long, numitems){
         };
         scraper.search(options, function(err, url, meta) {
           if(err) reject(err);
-  
+
           if(url && url.includes(searchsite) && !url.split('/').slice(-1).pop().includes("s?ie=UTF8") && results.length < numresults){
             results.push(url);
           }
@@ -142,7 +142,7 @@ function yelpsearch(rest_name, lat, long, numitems){
             resolve(results);
           }
         });
-    });  
+    });
   }
   //Waits until all results are completed
   // googlesearch('eon colfer', 'amazon.ca', 1)
@@ -160,4 +160,4 @@ function yelpsearch(rest_name, lat, long, numitems){
     movie       : moviesearch ,
     yelp        : yelpsearch
   }
-  
+
