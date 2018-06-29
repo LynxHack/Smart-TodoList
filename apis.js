@@ -9,7 +9,7 @@ function yelpsearch(rest_name, lat, long, numitems){
       url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
       headers: {
         'User-Agent': 'request',  
-        'Authorization': `Bearer ${yelpkey}`
+        'Authorization': `Bearer ${process.env.YELPKEY}`
       },
     };
     request(options, function(err, res, body){
@@ -52,8 +52,8 @@ function yelpsearch(rest_name, lat, long, numitems){
   var wolframkey = process.env.WOLFRAMKEY;
   
   // Test function call
-  categorize(test0, wolframkey)
-  .then((result) => {console.log(result)});
+  // categorize(test0, wolframkey)
+  // .then((result) => {console.log(result)});
   
   // Identifiers for each category
   const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
@@ -103,22 +103,25 @@ function yelpsearch(rest_name, lat, long, numitems){
   var parseString = require('xml2js').parseString
   const goodreadskey = process.env.GOODREADSKEY;
   function booksearch(bookname, key){
-    const bookstring = bookname.split(' ').join('+');
-    const url = `https://www.goodreads.com/search.xml?key=${key}&q=${bookstring}`;
-    request(url, (error, response, body) => {
-        if(error) reject(error);
-        parseString(body, function (err, result) {
-          const image = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url[0];
-          const author = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
-          const title = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title[0];
-          const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
-          const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
-          const url = `https://www.goodreads.com/book/show/${id}`;
-          console.log(title, author, rating, image, url);
-          //Modify to output to client
-        });
-    });
+    return new Promise((resolve, reject) => {
+      const bookstring = bookname.split(' ').join('+');
+      const url = `https://www.goodreads.com/search.xml?key=${key}&q=${bookstring}`;
+      request(url, (error, response, body) => {
+          if(error) reject(error);
+          parseString(body, function (err, result) {
+            const image = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url[0];
+            const author = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
+            const title = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title[0];
+            const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
+            const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
+            const url = `https://www.goodreads.com/book/show/${id}`;
+            console.log(title, author, rating, image, url);
+            resolve(title, image, author, rating, url);
+          });
+      });
+    })
   }
+  //below is deprecated since it now passes back promises
   //booksearch('Pride and Prejudice', goodreadskey);
   
   
@@ -155,8 +158,8 @@ function yelpsearch(rest_name, lat, long, numitems){
 
   module.exports = {
     google      : googlesearch,
-    "book"       : booksearch,
-    "cat"         : categorize  ,
+    book       : booksearch,
+    cat         : categorize  ,
     movie       : moviesearch ,
     yelp        : yelpsearch
   }
