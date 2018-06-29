@@ -77,16 +77,22 @@ function yelpsearch(rest_name, lat, long, numitems){
   });
 }
 
-//var moviename = 'titanic';
-//moviesearch(moviename, imdbkey);
-
+var moviename = 'avengers';
 var imdbkey = process.env.IMDBKEY;
+// moviesearch(moviename, imdbkey);
+
 function moviesearch(moviestring, imdbkey){
   const moviename = moviestring.split(' ').join('+');
   request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
-    if(error) throw err;
-    console.log(response.body); // Print the response status code if a response was received
-    //insert something to send info back to client end
+    if(error) throw error;
+    const result = JSON.parse(response.body);
+    const title = result.Title;
+    const image = result.Poster;
+    const rating = result.imdbRating;
+    const url = result.Website;
+    const runtime = result.Runtime;
+    const production = result.Production;
+    console.log({title, image, rating, url, runtime, production});;  
   });
 };
 

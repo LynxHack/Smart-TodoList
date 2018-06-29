@@ -84,23 +84,23 @@ router.post('/', function (req, res) {
         })
         .catch((error) => res.send(error));
         break;
+
       case "store":
-        search.yelpsearch(newtodo, Math.round(Number(lat)), Math.round(Number(long)), 1)
-          .then((rest) => {
-            card = new newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false);
-            res.send(card);
-          })
-          .catch((error) => res.send(error));
+        search.yelpsearch(newtodo, lat, long, 1)
+        .then((rest) => {
+          card = new newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false);
+          res.send(card);
+        })
+        .catch((error) => res.send(error));
         break;
 
       case "movie_tv":
-        // search.book(newtodo, process.env.GOODREADSKEY)
-        // .then((name, img, author, rating) =>{
-        //   card = new newbook(name,img,author,rating, null);
-        //   res.send(card); //send back to client, change this
-        // })
-        // .catch((error) => res.send(error));
-        //res.send("category = movietv");
+        search.moviesearch(newtodo, process.env.IMDBKEY)
+        .then((media)=>{
+          card = new newmedia(media.title, media.image, null, media.rating, null, false);
+          res.send(card);
+        })
+        .catch((error) => res.send(error))
         break;
 
       case "product":
