@@ -101,14 +101,14 @@ var test9 = 'fresh slice';
 
 var wolframkey = process.env.WOLFRAMKEY;
 
-//Test function call
-// categorize(test0, wolframkey)
-// .then((result) => {console.log(result)});
+// Test function call
+categorize(test0, wolframkey)
+.then((result) => {console.log(result)});
 
-// To improve list
-const store   = ['financ', 'restaurant', 'food', 'eat', 'company'];
-const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word'];
-const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch'];
+// Identifiers for each category
+const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
+const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word', 'author', 'write', 'writer'];
+const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch', 'series', 'documentary', 'show'];
 
 function classify(categories){
   let result = "product"; 
@@ -163,7 +163,7 @@ function booksearch(bookname, key){
         const title = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title[0];
         const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
         const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
-        const url = `https://www.goodreads.com/book/show/${id};`
+        const url = `https://www.goodreads.com/book/show/${id}`;
         console.log(title, author, rating, image, url);
         //Modify to output to client
       });
@@ -173,31 +173,35 @@ function booksearch(bookname, key){
 
 
 const scraper = require('google-search-scraper');
-function googlesearch(searchstring, numresults){
+function googlesearch(searchstring, searchsite, numresults){
   return new Promise(function(resolve, reject){
     const results = [];
     const options = {
         host: 'www.google.ca',
-        query: searchstring,
-        limit: numresults
+        query: searchstring + " " + searchsite,
+        limit: 100
       };
       scraper.search(options, function(err, url, meta) {
         if(err) reject(err);
-        if(url){
-          //console.log(url);
+
+        if(url && url.includes(searchsite) && !url.split('/').slice(-1).pop().includes("s?ie=UTF8") && results.length < numresults){
           results.push(url);
-          //meta.title, meta.meta, meta.desc
-          if(results.length === numresults){
-            resolve(results);
-          }
+        }
+        //meta.title, meta.meta, meta.desc
+        if(results.length >= numresults){
+          resolve(results);
         }
       });
   });  
 }
 //Waits until all results are completed
-// googlesearch('jurassic park amazon.ca', 10)
-// .then((results)=>{console.log(results)})
-// .catch((err) => {console.log(err)});
+// googlesearch('eon colfer', 'amazon.ca', 1)
+// .then((results)=>{
+//   console.log(results)
+// })
+// .catch((err) => {
+//   console.log(err)
+// });
 
 app.post("/:newtodo", (req, res)=>{
   console.log('hi');
@@ -206,3 +210,12 @@ app.post("/:newtodo", (req, res)=>{
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+// Allow these to be used in todos
+exports = {
+  google      : googlesearch,
+  book        : booksearch,
+  cat         : categorize  ,
+  movie       : moviesearch ,
+  yelp        : yelpsearch
+}

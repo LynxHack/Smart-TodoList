@@ -13,7 +13,19 @@ $(document).ready(function() {
   $('.alert').hide();
 
   $(".btn_submit").click(function() {
-
+    //perform ajax post request
+    console.log($(".new_todo_input").val());
+    $.ajax({datatype: "text", 
+            url: '/todos', 
+            data: $(".new_todo_input").val(), 
+            type: 'POST',
+            success: function(responseData, textStatus, jqXHR) {
+                console.log(responseData);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+    });
     $('.btn_submit').removeAttr("data-dismiss");
     if(!$(".new_todo_input").val()){
       $('.alert').show();
