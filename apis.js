@@ -115,8 +115,8 @@ function yelpsearch(rest_name, lat, long, numitems){
             const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
             const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
             const url = `https://www.goodreads.com/book/show/${id}`;
-            console.log(title, author, rating, image, url);
-            resolve(title, image, author, rating, url);
+            //console.log(title, author, rating, image, url);
+            resolve({title, image, author, rating, url}); //pass back as single object
           });
       });
     })

@@ -42,6 +42,7 @@ function newproduct(name, img, description, price, website, rating, due_date){
 function newbook(name, img, author, rating, duedate){
   this.type_id = 3;
   this.name    = name;
+  this.img = img;
   this.author  = author;
   this.rating  = rating;
   this.duedate = duedate;
@@ -63,12 +64,14 @@ router.post('/', function (req, res) {
   console.log(newtodo);
   search.cat(newtodo, process.env.WOLFRAMKEY)
   .then((result) =>{
-    let card; 
+    let card = {};
     switch (result){
       case "book":
         search.book(newtodo, process.env.GOODREADSKEY)
-        .then((name, img, author, rating) =>{
-          card = new newbook(name,img,author,rating, null);
+        .then(({title, image, author, rating, url}) =>{
+          console.log(title,image, author, rating);
+          card = new newbook(title,image,author,rating, null);
+          console.log(card);
           res.send(card); //send back to client, change this
         })
         .catch((error) => res.send(error));
