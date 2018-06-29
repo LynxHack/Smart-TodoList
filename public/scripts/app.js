@@ -17,7 +17,7 @@ $(document).ready(function() {
 
   }
 
-  function appendCard() {
+  function appendCard(category) {
     $(".movies").append(createTodoElement({}));
   }
 
