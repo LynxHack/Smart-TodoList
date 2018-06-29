@@ -5,16 +5,18 @@ module.exports = {
 
   newmedia: function (name, img, showtime, rating, due_date, is_done) {
     this.type_id = 1;
+    this.name = name;
     this.img = img;
     this.showtime = showtime;
     this.rating = rating;
     this.due_date = due_date;
     this.is_done = is_done;
-    this.type_id = 1;
+
   },
 
   newproduct: function (name, img, description, price, website, rating, due_date, is_done) {
     this.type_id = 4;
+    this.name = name;
     this.img = img;
     this.description = description;
     this.price = price;
@@ -22,7 +24,7 @@ module.exports = {
     this.rating = rating;
     this.due_date = due_date;
     this.is_done = is_done;
-    this.type_id = 4;
+
   },
 
   newbook: function (name, img, author, rating, duedate, is_done) {
@@ -33,7 +35,7 @@ module.exports = {
     this.rating = rating;
     this.duedate = duedate;
     this.is_done = is_done;
-    this.type_id = 3;
+
   },
 
   newrestaurant: function (name, location, website, rating, latitude, longitude, due_date, is_done) {
@@ -48,7 +50,7 @@ module.exports = {
     this.rating = rating;
     this.due_date = due_date;
     this.is_done = is_done;
-    this.type_id = 2;
+
   },
 
   // post new todo
@@ -60,7 +62,7 @@ module.exports = {
         case "book":
           search.booksearch(todo, process.env.GOODREADSKEY)
             .then((book) => {
-              card = new this.newbook(book.title, book.image, book.author, book.rating, null, false, book.is_done);
+              card = new this.newbook(book.title, book.image, book.author, book.rating, null, false);
               resolve(card);
             })
             .catch((error) => { reject(error) });
@@ -69,7 +71,7 @@ module.exports = {
         case "store":
           search.yelpsearch(todo, lat, long, 1)
             .then((rest) => {
-              card = new this.newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false, rest.is_done);
+              card = new this.newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false);
               resolve(card);
             })
             .catch((error) => { reject(error) });
@@ -78,7 +80,7 @@ module.exports = {
         case "movie_tv":
           search.moviesearch(todo, process.env.IMDBKEY)
             .then((media) => {
-              card = new this.newmedia(media.title, media.image, null, media.rating, null, false, media.is_done);
+              card = new this.newmedia(media.title, media.image, null, media.rating, null, false);
               resolve(card);
             })
             .catch((error) => { reject(error) });
@@ -87,7 +89,8 @@ module.exports = {
         case "product":
           search.googlesearch(todo, "amazon.ca", 1)
             .then((url) => {
-              resolve({ producturl: url.pop() });
+              card = new this.newproduct(todo,null,null,null,url.pop(),null)
+              resolve(card);
             })
             .catch((error) => {
               reject(error)

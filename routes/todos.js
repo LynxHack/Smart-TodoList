@@ -33,6 +33,7 @@ router.post('/', function (req, res) {
     todo.generatecard(newtodo, result, lat, long)
     .then((card) => {
       res.send(card);
+      db.newTodo(card, lat, long);
     })
   })
   .catch((error) => {console.log(error)});

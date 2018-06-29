@@ -7,82 +7,103 @@ const tables = {
   4 : 'product_todos'
 }
 
+const newBookTodo = function (name, img, author, rating, due_date) {
+
+  knex.insert({
+    name: name,
+    img: img,
+    author: author,
+    rating: rating,
+    due_date: due_date,
+    type_id: 3
+  }, 'id')
+    .into('book_todos')
+    .then(function (id) {
+      console.log(`Success ${id} entered`);
+    })
+    .catchReturn();
+}
+
+
+const newMediaTodo = function (name, img, showtime, rating, due_date) {
+
+  knex.insert({
+    name: name,
+    img: img,
+    showtime: showtime,
+    rating: rating,
+    due_date: due_date,
+    type_id: 1
+  }, 'id')
+    .into('media_todos')
+    .then(function (id) {
+      console.log(`Success ${id} entered`);
+    })
+    .catchReturn();
+}
+
+
+const newProductTodo = function (name, img, description, price, website, rating, due_date) {
+
+  knex.insert({
+    name: name,
+    img: img,
+    description: description,
+    price: price,
+    website: website,
+    rating: rating,
+    due_date: due_date,
+    type_id: 4
+  }, 'id')
+    .into('product_todos')
+    .then(function (id) {
+      console.log(`Success ${id} entered`);
+    })
+    .catchReturn();
+}
+
+
+const newRestaurantTodo = function (name, img, location, website, rating, due_date) {
+
+  knex.insert({
+    name: name,
+    img: img,
+    location:location,
+    website: website,
+    rating: rating,
+    due_date: due_date,
+    type_id: 2
+  }, 'id')
+    .into('restaurant_todos')
+    .then(function (id) {
+      console.log(`Success ${id} entered`);
+    })
+    .catchReturn();
+}
+
 
 module.exports = {
 
-  newBookTodo: function (name, img, author, rating, due_date) {
+  newTodo: function (card, lat, long) { 
+    switch (card.type_id) {
+      case 1:
+        newMediaTodo(card.name,card.img,card.showtime,card.rating,card.due_date);
+        break;
 
-    knex.insert({
-      name: name,
-      img: img,
-      author: author,
-      rating: rating,
-      due_date: due_date,
-      type_id: 3
-    }, 'id')
-      .into('book_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
+      case 2:
+        newRestaurantTodo(card.name, card.defaultimage,card.location,card.website,card.rating);
+        break;
 
+      case 3:
+        newBookTodo(card.name,card.img,card.author,card.rating)
+        break;
 
-  newMediaTodo: function (name, img, showtime, rating, due_date) {
-
-    knex.insert({
-      name: name,
-      img: img,
-      showtime: showtime,
-      rating: rating,
-      due_date: due_date,
-      type_id: 1
-    }, 'id')
-      .into('media_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
-
-
-  newProductTodo: function (name, img, description, price, website, rating, due_date) {
-
-    knex.insert({
-      name: name,
-      img: img,
-      description: description,
-      price: price,
-      website: website,
-      rating: rating,
-      due_date: due_date,
-      type_id: 4
-    }, 'id')
-      .into('product_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
-
-
-  newRestaurantTodo: function (name, img, location, website, rating, due_date) {
-
-    knex.insert({
-      name: name,
-      img: img,
-      location:location,
-      website: website,
-      rating: rating,
-      due_date: due_date,
-      type_id: 2
-    }, 'id')
-      .into('restaurant_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
+      case 4:
+        newProductTodo(card.name,null,null,null,card.website,null)
+        break;
+    
+    }
+   },
 
 
   deleteTodo: function (id, type_id) {
