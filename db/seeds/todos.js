@@ -17,14 +17,17 @@ exports.seed = function (knex, Promise) {
       showtime: 'https://www.cineplex.com/Showtimes/deadpool-2/cineplex-cinemas-coquitlam-and-vip?Date=6/28/2018',
       rating: 'https://www.rottentomatoes.com/m/deadpool_2/#contentReviews',
       is_done: false,
-      due_date: undefined
+      due_date: undefined,
+      type_id: 1
     }),
     knex('book_todos').insert({
       name: 'Harry Potter',
       img: 'https://commons.wikimedia.org/wiki/File:Harry_Potter_wordmark.svg#/media/File:Harry_Potter_wordmark.svg',
       author: 'J. K. Rowling',
       rating: 'https://www.goodreads.com/book/show/862041.Harry_Potter_Boxset?from_search=true',
-      due_date: undefined
+      website: 'https://www.amazon.ca/Harry-Potter-Box-Set-Collection/dp/1408856778/ref=sr_1_1?ie=UTF8&qid=1530221908&sr=8-1&keywords=harry+potter+book+set&dpID=51R3DwN8h8L&preST=_SX198_BO1,204,203,200_QL40_&dpSrc=srch',
+      due_date: undefined,
+      type_id: 3
     }),
     knex('restaurant_todos').insert({
       name: 'Blue Water Cafe',
@@ -32,7 +35,8 @@ exports.seed = function (knex, Promise) {
       location: 'https://goo.gl/maps/m9Jy3hqVrBA2',
       website: 'https://www.bluewatercafe.net/',
       rating: 'https://www.tripadvisor.ca/Restaurant_Review-g154943-d702167-Reviews-Blue_Water_Cafe-Vancouver_British_Columbia.html',
-      due_date: undefined
+      due_date: undefined,
+      type_id: 2
     }),
     knex('product_todos').insert({
       name: 'bowflex',
@@ -41,7 +45,8 @@ exports.seed = function (knex, Promise) {
       price: '$778.94',
       website: 'http://www.nautilusinc.com/',
       rating: 'https://www.amazon.com/Bowflex-Xtreme-SE-Home-Gym/product-reviews/B000RFBNA4',
-      due_date: undefined
+      due_date: undefined,
+      type_id: 4
     })
 
   ])
