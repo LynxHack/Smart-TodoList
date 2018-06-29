@@ -15,17 +15,26 @@ $(document).ready(function() {
   $(".btn_submit").click(function() {
     //perform ajax post request
     console.log($(".new_todo_input").val());
-    $.ajax({datatype: "text", 
-            url: '/todos', 
-            data: $(".new_todo_input").val(), 
-            type: 'POST',
-            success: function(responseData, textStatus, jqXHR) {
-                console.log(responseData);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
+    var textboxval =$(".new_todo_input").val();
+    const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
+      const lat  = position.coords.latitude;
+      const long = position.coords.longitude;
+      console.log(textboxval);
+      $.ajax({datatype: "json", 
+      url: '/todos', 
+      data: {text: textboxval,lat: lat , long: long}, 
+      type: 'POST',
+      success: function(responseData, textStatus, jqXHR) {
+          console.log(responseData);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+      }
+});
+
+
     });
+
     $('.btn_submit').removeAttr("data-dismiss");
     if(!$(".new_todo_input").val()){
       $('.alert').show();

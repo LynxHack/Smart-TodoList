@@ -60,8 +60,12 @@ function newrestaurant(name, img, location, website, rating, due_date){
 
 // post new todo
 router.post('/', function (req, res) {
-  const newtodo  = String(Object.keys(req.body)[0]);
-  console.log(newtodo);
+  console.log(req.body);
+  const newtodo  = req.body.text;
+  const lat = req.body.lat;
+  const long = req.body.long;
+
+  console.log(newtodo, lat, long);
   search.cat(newtodo, process.env.WOLFRAMKEY)
   .then((result) =>{
     let card = {};
