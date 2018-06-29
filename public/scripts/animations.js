@@ -9,6 +9,51 @@ $(document).ready(function() {
       , 500);
   });
 
+  // Sending alerts upon empty input
+  $('.alert').hide();
+
+  $(".btn_submit").click(function() {
+
+    $('.btn_submit').removeAttr("data-dismiss");
+    if(!$(".new_todo_input").val()){
+      $('.alert').show();
+    } else {
+      $(".alert").hide();
+      $(".new_todo_input").val("");
+      $('.btn_submit').attr("data-dismiss", "modal");
+    }
+  })
+
+  $(".btn-danger-edit").click(function(e) {
+    e.preventDefault();
+    $('#myModal_delete').modal().one('click', '#delete', function(e){
+      $form.trigger('submit');
+     })
+  });
+
+  $(".btn-info-edit").click(function(e) {
+    e.preventDefault();
+    $('#myModal_card_edit').modal().one('click', '#delete', function(e){
+      $.form.trigger('submit');
+     })
+  });
+
+  $('.btn-card-update').click(function(e) {
+    e.preventDefault();
+  })
+
+  // hide alert upon click events
+  $(".close").click(function() {
+    $(".alert").hide();
+  });
+
+  $(".btn_add_close").click(function() {
+    $(".alert").hide();
+  });
+  // End of alert hiding events
+
+
+  // Detecting current page
   $(window).on('scroll', function () {
     if ($(this).scrollTop() >= $('#food_image').position().top) {
       $("#product_menu_link").removeClass("active");

@@ -1,0 +1,37 @@
+div.card{
+  margin: 1em 0em 1em 2em;
+  border: 1px lightgrey solid;
+  border-radius: 25px;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+  height: 35em;
+  width: 250px;
+}
+
+div.card:hover {
+  border: 1px black solid;
+}
+
+img.card-img-top{
+  width:100%;
+}
+
+ul.list-group-flush{
+  text-align: left;
+}
+
+button.btn-info-edit{
+  margin-top: 12em;
+  width: 6em;
+}
+
+button.btn-danger-edit{
+  margin-top: 12em;
+  width: 6em;
+}
+
+footer {
+  height: 10em;
+  background-color: black;
+}
