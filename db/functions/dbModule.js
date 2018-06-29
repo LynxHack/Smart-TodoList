@@ -10,7 +10,7 @@ const tables = {
 
 module.exports = {
 
-  newBookTodo: function (name, img, author, rating, due_date, type_id) {
+  newBookTodo: function (name, img, author, rating, due_date) {
 
     knex.insert({
       name: name,
@@ -18,7 +18,7 @@ module.exports = {
       author: author,
       rating: rating,
       due_date: due_date,
-      type_id: type_id
+      type_id: 3
     }, 'id')
       .into('book_todos')
       .then(function (id) {
@@ -28,7 +28,7 @@ module.exports = {
   },
 
 
-  newMediaTodo: function (name, img, showtime, rating, due_date, type_id) {
+  newMediaTodo: function (name, img, showtime, rating, due_date) {
 
     knex.insert({
       name: name,
@@ -36,7 +36,7 @@ module.exports = {
       showtime: showtime,
       rating: rating,
       due_date: due_date,
-      type_id: type_id
+      type_id: 1
     }, 'id')
       .into('media_todos')
       .then(function (id) {
@@ -46,7 +46,7 @@ module.exports = {
   },
 
 
-  newProductTodo: function (name, img, description, price, website, rating, due_date, type_id) {
+  newProductTodo: function (name, img, description, price, website, rating, due_date) {
 
     knex.insert({
       name: name,
@@ -56,7 +56,7 @@ module.exports = {
       website: website,
       rating: rating,
       due_date: due_date,
-      type_id: type_id
+      type_id: 4
     }, 'id')
       .into('product_todos')
       .then(function (id) {
@@ -66,7 +66,7 @@ module.exports = {
   },
 
 
-  newRestaurantTodo: function (name, img, location, website, rating, due_date, type_id) {
+  newRestaurantTodo: function (name, img, location, website, rating, due_date) {
 
     knex.insert({
       name: name,
@@ -75,7 +75,7 @@ module.exports = {
       website: website,
       rating: rating,
       due_date: due_date,
-      type_id: type_id
+      type_id: 2
     }, 'id')
       .into('restaurant_todos')
       .then(function (id) {
