@@ -17,12 +17,13 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
     <script type="text/javascript" src="/scripts/animations.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
@@ -37,7 +38,7 @@
       <a href="#food_image" id="food_menu_link">To Eat</a>
 
       <div class="dropdown">
-        <a href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <a id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           More Todo
           <span class="caret"></span></a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -58,13 +59,14 @@
       </div>
       <div class="movies">
 
-        <div class="card" >
+        <div class="card" id="movie_test">
             <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
             <div class="card-body">
               <h4 class="card-title">Placeholder</h4>
               <p class="card-text"> Dummie text </p>
               <button class="btn btn-info btn-info-edit">Edit</button>
               <button class="btn btn-danger btn-danger-edit">Delete</button>
+              <label class="is_done_label"> </label>
             </div>
         </div>
 
@@ -76,13 +78,14 @@
       </div>
       <div class="products">
 
-        <div class="card" >
+        <div class="card" id="product_test">
             <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
             <div class="card-body">
               <h4 class="card-title">Placeholder</h4>
               <p class="card-text"> Dummie text </p>
               <button class="btn btn-info btn-info-edit">Edit</button>
               <button class="btn btn-danger btn-danger-edit">Delete</button>
+              <label class="is_done_label"> </label>
             </div>
         </div>
 
@@ -93,7 +96,7 @@
       <div id="books_image">
         <h1 class="image_text"> Books To Read </h2>
       </div>
-      <div class="books">
+      <div class="books" id="book_test">
 
         <div class="card" >
             <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
@@ -102,6 +105,7 @@
               <p class="card-text"> Dummie text </p>
               <button class="btn btn-info btn-info-edit">Edit</button>
               <button class="btn btn-danger btn-danger-edit">Delete</button>
+              <label class="is_done_label"> </label>
             </div>
         </div>
 
@@ -112,7 +116,7 @@
       <div id="food_image">
         <h1 class="image_text"> Restaurants&Cafes To Eat</h2>
       </div>
-      <div class="food">
+      <div class="food" id="food_test">
 
         <div class="card" >
             <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
@@ -121,6 +125,7 @@
               <p class="card-text"> Dummie text </p>
               <button class="btn btn-info btn-info-edit">Edit</button>
               <button class="btn btn-danger btn-danger-edit">Delete</button>
+              <label class="is_done_label"> </label>
             </div>
         </div>
 
@@ -229,10 +234,10 @@
             <div class="modal-body_radio">
               <h6 class="rename_todo_h6"> Done This Todo?</h6>
               <div class="radio">
-                <label><input type="radio" name="optradio">Yes</label>
+                <label><input type="radio" name="optradio" value="1">Yes</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">No</label>
+                <label><input type="radio" name="optradio" value="2">No</label>
               </div>
             </div>
             <div class="form-group modal-body_select">
@@ -246,7 +251,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" data-dismiss="modal" class="btn btn-info btn-card-update" id="delete">Update</button>
+            <button type="submit" data-dismiss="modal" class="btn btn-info btn-card-update">Update</button>
             <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
           </div>
         </form>
@@ -270,7 +275,7 @@
           <p>Are you sure?</p>
         </div>
         <div class="modal-footer delete_modal_edit_footer">
-          <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary btn_delete_confirmation" id="delete">Delete</button>
           <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
         </div>
       </div>

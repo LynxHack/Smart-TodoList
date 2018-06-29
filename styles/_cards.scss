@@ -31,7 +31,9 @@ button.btn-danger-edit{
   width: 6em;
 }
 
-footer {
-  height: 10em;
-  background-color: black;
+label.is_done_label{
+  margin-top: 24px;
+  width: 100%;
+  border-bottom: 10px red solid;
 }
+

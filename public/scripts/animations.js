@@ -13,7 +13,6 @@ $(document).ready(function() {
   $('.alert').hide();
 
   $(".btn_submit").click(function() {
-
     $('.btn_submit').removeAttr("data-dismiss");
     if(!$(".new_todo_input").val()){
       $('.alert').show();
@@ -26,28 +25,16 @@ $(document).ready(function() {
 
   $(".btn-danger-edit").click(function(e) {
     e.preventDefault();
-    $('#myModal_delete').modal().one('click', '#delete', function(e){
-      $form.trigger('submit');
-     })
+    $('#myModal_delete').modal()
+    // .one('click', '#delete', function(e){
+    //   $('form').trigger('submit');
+    //  })
   });
 
   $(".btn-info-edit").click(function(e) {
     e.preventDefault();
-    $('#myModal_card_edit').modal().one('click', '#delete', function(e){
-      $.form.trigger('submit');
-     })
+    $('#myModal_card_edit').modal();
   });
-
-  $('.btn-card-update').click(function(e) {
-    e.preventDefault();
-    var btnVal = $('input[name=optradio]:checked').val();
-    if(Number(btnVal) === 1){
-      $(".is_done_label").css("border-bottom", "10px lightgreen solid");
-    } else {
-      $(".is_done_label").css("border-bottom", "10px lightgreen solid");
-    }
-
-  })
 
   // hide alert upon click events
   $(".close").click(function() {

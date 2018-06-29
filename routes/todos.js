@@ -3,7 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/functions/dbModule.js')
-
+const search = require('../apis.js');
+require('dotenv').config();
 
 // get all todos
 router.get('/', function (req, res) {
@@ -23,8 +24,16 @@ router.get('/:id', function (req, res) {
 
 // post new todo
 router.post('/', function (req, res) {
-  db.newTodo(req.body.name, req.body.due_date, req.body.types_id, req.body.users_id);
-  res.render(200, '/', { err: err });
+  const newtodo  = String(Object.keys(req.body)[0]);
+  console.log(newtodo);
+  search.cat(newtodo, process.env.WOLFRAMKEY)
+  .then((result) =>{
+    res.send(newtodo + " category: " + result);
+  });
+
+
+  //db.newTodo(req.body.name, req.body.due_date, req.body.types_id, req.body.users_id);
+  //res.render(200, '/', { err: err });
 });
 
 
