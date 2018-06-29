@@ -40,6 +40,13 @@ $(document).ready(function() {
 
   $('.btn-card-update').click(function(e) {
     e.preventDefault();
+    var btnVal = $('input[name=optradio]:checked').val();
+    if(Number(btnVal) === 1){
+      $(".is_done_label").css("border-bottom", "10px lightgreen solid");
+    } else {
+      $(".is_done_label").css("border-bottom", "10px lightgreen solid");
+    }
+
   })
 
   // hide alert upon click events

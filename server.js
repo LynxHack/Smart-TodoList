@@ -43,6 +43,13 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+
+// app.get('/test', (req,res)=>{
+//   //call the Wolven api over here.
+
+// });
+
+
 //yelp
 var request = require('request');
 var yelpkey = process.env.YELPKEY;
@@ -58,7 +65,7 @@ function yelpsearch(rest_name, lat, long, numitems){
   var options = {
     url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
     headers: {
-      'User-Agent': 'request',  
+      'User-Agent': 'request',
       'Authorization': `Bearer ${yelpkey}`
     },
   };
@@ -88,7 +95,7 @@ function moviesearch(moviestring, imdbkey){
   });
 };
 
-var test0 = 'bible'; 
+var test0 = 'bible';
 var test1 = 'Harry Potter';
 var test2 = 'pizza hut';
 var test3 = 'mcdonalds';
@@ -111,7 +118,7 @@ const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word'];
 const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch'];
 
 function classify(categories){
-  let result = "product"; 
+  let result = "product";
   const string = categories[0].toLowerCase();
 
   //if the first result does not have a defined category, try others
@@ -123,7 +130,7 @@ function classify(categories){
     result = "movie_tv";
   else if(book.some(e => string.includes(e)))
     result = "book";
-  
+
   return result;
 }
 
@@ -192,7 +199,7 @@ function googlesearch(searchstring, numresults){
           }
         }
       });
-  });  
+  });
 }
 //Waits until all results are completed
 // googlesearch('jurassic park amazon.ca', 10)
