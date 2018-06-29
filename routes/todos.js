@@ -21,15 +21,16 @@ router.get('/:id', function (req, res) {
   });
 });
 
-function newmedia(name, img, showtime, rating, due_date){
+function newmedia(name, img, showtime, rating, due_date, is_done){
   this.type_id = 1;
   this.img     = img;
   this.showtime= showtime;
   this.rating  = rating;
   this.due_date= due_date;
+  this.is_done = is_done;
 }
 
-function newproduct(name, img, description, price, website, rating, due_date){
+function newproduct(name, img, description, price, website, rating, due_date, is_done){
   this.type_id = 4;
   this.img = img;
   this.description = description;
@@ -37,58 +38,59 @@ function newproduct(name, img, description, price, website, rating, due_date){
   this.website = website;
   this.rating = rating;
   this.due_date = due_date;
+  this.is_done  = is_done;
 }
 
-function newbook(name, img, author, rating, duedate){
+function newbook(name, img, author, rating, duedate, is_done){
   this.type_id = 3;
   this.name    = name;
   this.img = img;
   this.author  = author;
   this.rating  = rating;
   this.duedate = duedate;
+  this.is_done = is_done;
 }
 
-function newrestaurant(name, img, location, website, rating, due_date){
+function newrestaurant(name, location, website, rating, latitude, longitude, due_date, is_done){
   this.type_id = 2;
   this.name = name;
-  this.img = img;
+  //currently hardcoded image
+  this.defaultimage = 'https://static.vecteezy.com/system/resources/previews/000/085/097/non_2x/free-restaurant-interior-vector.jpg';
   this.location = location;
+  this.latitude = latitude;
+  this.longitude = longitude;
   this.website = website;
   this.rating = rating;
   this.due_date = due_date;
+  this.is_done = is_done;
 }
 
 // post new todo
 router.post('/', function (req, res) {
-  console.log(req.body);
   const newtodo  = req.body.text;
   const lat = req.body.lat;
   const long = req.body.long;
 
-  console.log(newtodo, lat, long);
-  search.cat(newtodo, process.env.WOLFRAMKEY)
+  search.categorize(newtodo, process.env.WOLFRAMKEY)
   .then((result) =>{
     let card = {};
+    console.log("category of ", newtodo, " is ", result);
     switch (result){
       case "book":
-        search.book(newtodo, process.env.GOODREADSKEY)
-        .then(({title, image, author, rating, url}) =>{
-          console.log(title,image, author, rating);
-          card = new newbook(title,image,author,rating, null);
-          console.log(card);
+        search.booksearch(newtodo, process.env.GOODREADSKEY)
+        .then((book) =>{
+          card = new newbook(book.title,book.image,book.author,book.rating, null, false);
           res.send(card); //send back to client, change this
         })
         .catch((error) => res.send(error));
         break;
-      
       case "store":
-        // search.yelp(newtodo, process.env.YELPKEY)
-        // .then((name, img, author, rating) =>{
-        //   card = new newbook(name,img,author,rating, null);
-        //   res.send(card); //send back to client, change this
-        // })
-        // .catch((error) => res.send(error));
-        res.send("category = store");
+        search.yelpsearch(newtodo, Math.round(Number(lat)), Math.round(Number(long)), 1)
+          .then((rest) => {
+            card = new newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false);
+            res.send(card);
+          })
+          .catch((error) => res.send(error));
         break;
 
       case "movie_tv":
@@ -98,7 +100,7 @@ router.post('/', function (req, res) {
         //   res.send(card); //send back to client, change this
         // })
         // .catch((error) => res.send(error));
-        res.send("category = movietv");
+        //res.send("category = movietv");
         break;
 
       case "product":
@@ -108,11 +110,11 @@ router.post('/', function (req, res) {
         //   res.send(card); //send back to client, change this
         // })
         // .catch((error) => res.send(error));
-        res.send("cateogry = product");
+        //res.send("cateogry = product");
         break;
 
       default:
-        res.send("Failed to identify cateogory");
+        //res.send("Failed to identify cateogory");
     }
     //res.send(newtodo + " category: " + result);
   });

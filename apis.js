@@ -2,18 +2,19 @@
 
 require('dotenv').config();
 var request = require('request');
-
+var yelpkey = process.env.YELPKEY;
 function yelpsearch(rest_name, lat, long, numitems){
-    const restaurantname = rest_name.split(' ').join('+');
+   return new Promise((resolve, reject) =>{
+    var restaurantname = rest_name.split(' ').join('+');
     var options = {
-      url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
+      url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${lat}&longitude=${long}&limit=${numitems}`,
       headers: {
         'User-Agent': 'request',  
-        'Authorization': `Bearer ${process.env.YELPKEY}`
+        'Authorization': `Bearer ${yelpkey}`
       },
     };
     request(options, function(err, res, body){
-      if(err){console.log(err);}
+      if(err){ resolve(err); }//reject(err);}
       const data = JSON.parse(body);
       const name = data.businesses[0].name;
       const rating = data.businesses[0].rating;
@@ -21,9 +22,13 @@ function yelpsearch(rest_name, lat, long, numitems){
       const phone = data.businesses[0].phone;
       const latitude = data.businesses[0].coordinates.latitude;
       const longitude = data.businesses[0].coordinates.longitude;
-      console.log(name, rating, location, phone, latitude, longitude);
+      const url = data.businesses[0].url;
+      console.log(body);
+      resolve({name, location, rating, url, latitude, longitude});
     });
-  }
+  })
+}
+  
   
   //var moviename = 'titanic';
   //moviesearch(moviename, imdbkey);
@@ -115,7 +120,6 @@ function yelpsearch(rest_name, lat, long, numitems){
             const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
             const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
             const url = `https://www.goodreads.com/book/show/${id}`;
-            //console.log(title, author, rating, image, url);
             resolve({title, image, author, rating, url}); //pass back as single object
           });
       });
@@ -157,10 +161,10 @@ function yelpsearch(rest_name, lat, long, numitems){
   // });
 
   module.exports = {
-    google      : googlesearch,
-    book       : booksearch,
-    cat         : categorize  ,
-    movie       : moviesearch ,
-    yelp        : yelpsearch
+    googlesearch      : googlesearch,
+    booksearch       : booksearch,
+    categorize         : categorize  ,
+    moviesearch       : moviesearch ,
+    yelpsearch        : yelpsearch
   }
   

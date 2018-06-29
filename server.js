@@ -47,11 +47,11 @@ app.get("/", (req, res) => {
 var request = require('request');
 var yelpkey = process.env.YELPKEY;
 
-// var restaurantname = 'pizza hut';
-// var latitude = 49; //replace this with coordinate obtain from client
-// var longitude = -123; //replace this with coordinate obtain from client
-// var limit = 3;  //default 20, max 50;
-//yelpsearch(restaurantname, latitude, longitude, limit);
+var restaurantname = 'pizza hut';
+var latitude = 49; //replace this with coordinate obtain from client
+var longitude = -123; //replace this with coordinate obtain from client
+var limit = 1;  //default 20, max 50;
+//elpsearch(restaurantname, latitude, longitude, limit);
 
 function yelpsearch(rest_name, lat, long, numitems){
   const restaurantname = rest_name.split(' ').join('+');
@@ -71,7 +71,9 @@ function yelpsearch(rest_name, lat, long, numitems){
     const phone = data.businesses[0].phone;
     const latitude = data.businesses[0].coordinates.latitude;
     const longitude = data.businesses[0].coordinates.longitude;
-    console.log(name, rating, location, phone, latitude, longitude);
+    const url = data.businesses[0].url;
+    console.log(body);
+    console.log(name, location, rating, url, latitude, longitude);
   });
 }
 
@@ -102,8 +104,8 @@ var test9 = 'fresh slice';
 var wolframkey = process.env.WOLFRAMKEY;
 
 // Test function call
-categorize(test0, wolframkey)
-.then((result) => {console.log(result)});
+// categorize(test0, wolframkey)
+// .then((result) => {console.log(result)});
 
 // Identifiers for each category
 const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
