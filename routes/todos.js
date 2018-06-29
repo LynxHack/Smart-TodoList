@@ -104,19 +104,18 @@ router.post('/', function (req, res) {
         break;
 
       case "product":
-        // search.book(newtodo, process.env.GOODREADSKEY)
-        // .then((name, img, author, rating) =>{
-        //   card = new newbook(name,img,author,rating, null);
-        //   res.send(card); //send back to client, change this
-        // })
-        // .catch((error) => res.send(error));
-        //res.send("cateogry = product");
+        search.googlesearch(newtodo, "amazon.ca", 1)
+        .then((results)=>{
+          res.send(results)
+        })
+        .catch((err) => {
+          res.send(err)
+        });
         break;
 
       default:
-        //res.send("Failed to identify cateogory");
+        res.send("Failed to identify cateogory");
     }
-    //res.send(newtodo + " category: " + result);
   });
 
 
