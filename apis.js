@@ -14,7 +14,7 @@ function yelpsearch(rest_name, lat, long, numitems){
       },
     };
     request(options, function(err, res, body){
-      if(err){ resolve(err); }//reject(err);}
+      if(err){ resolve(err) }
       const data = JSON.parse(body);
       const name = data.businesses[0].name;
       const rating = data.businesses[0].rating;
@@ -23,19 +23,14 @@ function yelpsearch(rest_name, lat, long, numitems){
       const latitude = data.businesses[0].coordinates.latitude;
       const longitude = data.businesses[0].coordinates.longitude;
       const url = data.businesses[0].url;
-      console.log(body);
       resolve({name, location, rating, url, latitude, longitude});
     });
   })
 }
-  
-  
-  //var moviename = 'titanic';
-  //moviesearch(moviename, imdbkey);
-  
-  var imdbkey = process.env.IMDBKEY;
-  function moviesearch(moviestring, imdbkey){
-    return new Promise((resolve, result) => {
+
+var imdbkey = process.env.IMDBKEY;
+function moviesearch(moviestring, imdbkey){
+  return new Promise((resolve, result) => {
       const moviename = moviestring.split(' ').join('+');
       request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
         if(error) reject(error);
@@ -51,23 +46,7 @@ function yelpsearch(rest_name, lat, long, numitems){
     });
   };
   
-  var test0 = 'bible'; 
-  var test1 = 'Harry Potter';
-  var test2 = 'pizza hut';
-  var test3 = 'mcdonalds';
-  var test4 = 'burger king';
-  var test5 = 'titanic';
-  var test6 = 'artemis fowl';
-  var test7 = 'avengers';
-  var test8 = 'breaking bad';
-  var test9 = 'fresh slice';
-  
-  var wolframkey = process.env.WOLFRAMKEY;
-  
-  // Test function call
-  // categorize(test0, wolframkey)
-  // .then((result) => {console.log(result)});
-  
+
   // Identifiers for each category
   const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
   const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word', 'author', 'write', 'writer'];
@@ -128,14 +107,11 @@ function yelpsearch(rest_name, lat, long, numitems){
             const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
             const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
             const url = `https://www.goodreads.com/book/show/${id}`;
-            resolve({title, image, author, rating, url}); //pass back as single object
+            resolve({title, image, author, rating, url});
           });
       });
     })
   }
-  //below is deprecated since it now passes back promises
-  //booksearch('Pride and Prejudice', goodreadskey);
-  
   
   const scraper = require('google-search-scraper');
   function googlesearch(searchstring, searchsite, numresults){
@@ -159,20 +135,12 @@ function yelpsearch(rest_name, lat, long, numitems){
         });
     });  
   }
-  //Waits until all results are completed
-  // googlesearch('eon colfer', 'amazon.ca', 1)
-  // .then((results)=>{
-  //   console.log(results)
-  // })
-  // .catch((err) => {
-  //   console.log(err)
-  // });
 
   module.exports = {
-    googlesearch      : googlesearch,
-    booksearch       : booksearch,
-    categorize         : categorize  ,
-    moviesearch       : moviesearch ,
-    yelpsearch        : yelpsearch
+    googlesearch  : googlesearch,
+    booksearch    : booksearch,
+    categorize    : categorize  ,
+    moviesearch   : moviesearch ,
+    yelpsearch    : yelpsearch
   }
   

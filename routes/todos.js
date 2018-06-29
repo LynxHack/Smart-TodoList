@@ -66,61 +66,68 @@ function newrestaurant(name, location, website, rating, latitude, longitude, due
 }
 
 // post new todo
+
+function generatecard(todo, category, lat, long){
+  return new Promise((resolve, reject) => {
+    let card = {};
+      switch (category){
+        case "book":
+          search.booksearch(todo, process.env.GOODREADSKEY)
+          .then((book) =>{
+            card = new newbook(book.title,book.image,book.author,book.rating, null, false);
+            resolve(card);
+          })
+          .catch((error) => {reject(error)});
+          break;
+
+        case "store":
+          search.yelpsearch(todo, lat, long, 1)
+          .then((rest) => {
+            card = new newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false);
+            resolve(card);
+          })
+          .catch((error) => {reject(error)});
+          break;
+
+        case "movie_tv":
+          search.moviesearch(todo, process.env.IMDBKEY)
+          .then((media)=>{
+            card = new newmedia(media.title, media.image, null, media.rating, null, false);
+            resolve(card);
+          })
+          .catch((error) => {reject(error)});
+          break;
+
+        case "product":
+          search.googlesearch(todo, "amazon.ca", 1)
+          .then((url)=>{
+            resolve({producturl: url.pop()});
+          })
+          .catch((error) => {
+            reject(error)
+          });
+          break;
+
+        default:
+          resolve("Failed to identify cateogory");
+    }
+  });
+}
+
+
 router.post('/', function (req, res) {
   const newtodo  = req.body.text;
   const lat = req.body.lat;
   const long = req.body.long;
 
   search.categorize(newtodo, process.env.WOLFRAMKEY)
-  .then((result) =>{
-    let card = {};
-    console.log("category of ", newtodo, " is ", result);
-    switch (result){
-      case "book":
-        search.booksearch(newtodo, process.env.GOODREADSKEY)
-        .then((book) =>{
-          card = new newbook(book.title,book.image,book.author,book.rating, null, false);
-          res.send(card); //send back to client, change this
-        })
-        .catch((error) => res.send(error));
-        break;
-
-      case "store":
-        search.yelpsearch(newtodo, lat, long, 1)
-        .then((rest) => {
-          card = new newrestaurant(rest.name, rest.location, rest.url, rest.rating, rest.latitude, rest.longitude, null, false);
-          res.send(card);
-        })
-        .catch((error) => res.send(error));
-        break;
-
-      case "movie_tv":
-        search.moviesearch(newtodo, process.env.IMDBKEY)
-        .then((media)=>{
-          card = new newmedia(media.title, media.image, null, media.rating, null, false);
-          res.send(card);
-        })
-        .catch((error) => res.send(error))
-        break;
-
-      case "product":
-        search.googlesearch(newtodo, "amazon.ca", 1)
-        .then((results)=>{
-          res.send(results)
-        })
-        .catch((err) => {
-          res.send(err)
-        });
-        break;
-
-      default:
-        res.send("Failed to identify cateogory");
-    }
-  });
-
-
-  //db.newTodo(req.body.name, req.body.due_date, req.body.types_id, req.body.users_id);
-  //res.render(200, '/', { err: err });
+  .then((result) => {
+    generatecard(newtodo, result, lat, long)
+    .then((card) => {
+      res.send(card);
+    })
+  })
+  .catch((error) => {console.log(error)});
 });
 
 
