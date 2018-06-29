@@ -26,11 +26,12 @@ $(document).ready(function() {
       type: 'POST',
       success: function(responseData, textStatus, jqXHR) {
           console.log(responseData);
+          appendCard(responseData);
       },
       error: function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
       }
-});
+    });
 
 
     });

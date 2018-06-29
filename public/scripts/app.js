@@ -1,67 +1,67 @@
-$(document).ready(function() {
+// $(document).ready(function() {
 
 
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
+    switch (todoObject.type_id){
+      case 1:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
+      
+      case 2:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
 
-    return card = "<div class=\"card\">" +
-                  "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
-                  "<div class=\"card-body\">" +
-                    "<h4 class=\"card-title\">Placeholder</h4>" +
-                    "<p class=\"card-text\">Dummie Text</p>" +
-                    "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
-                    "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
-                  "</div>" +
-                "<div>" ;
+      case 3:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
 
-
+      case 4:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
+    }
   }
 
-  function appendCard(category) {
-    $(".movies").append(createTodoElement({}));
+  function appendCard(todoObject) {
+    $(".movies").append(createTodoElement(todoObject));
   }
 
-  $(".btn_submit").click(function() {
-    appendCard();
-  });
+  // $(".btn_submit").click(function() {
+  //   appendCard();
+  // });
 
 
   //console.log(createTodoElement({}));
   // End of createTodoElement
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// });
 
 
 
