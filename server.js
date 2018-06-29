@@ -110,7 +110,7 @@ var wolframkey = process.env.WOLFRAMKEY;
 
 // Test function call
 categorize(test0, wolframkey)
-.then((result) => {console.log(result)});
+.then((result) => {console.log("this one")});
 
 // Identifiers for each category
 const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];

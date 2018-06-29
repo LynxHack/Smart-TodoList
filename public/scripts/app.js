@@ -28,6 +28,7 @@ $(document).ready(function() {
 
   $(".btn_submit").click(function(e) {
     e.preventDefault();
+    appendCard();
 
     //perform ajax post request
     $.ajax({datatype: "text",

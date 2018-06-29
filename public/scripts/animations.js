@@ -13,6 +13,31 @@ $(document).ready(function() {
   $('.alert').hide();
 
   $(".btn_submit").click(function() {
+<<<<<<< HEAD
+=======
+    //perform ajax post request
+    console.log($(".new_todo_input").val());
+    var textboxval =$(".new_todo_input").val();
+    const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
+      const lat  = position.coords.latitude;
+      const long = position.coords.longitude;
+      console.log(textboxval);
+      $.ajax({datatype: "json", 
+      url: '/todos', 
+      data: {text: textboxval,lat: lat , long: long}, 
+      type: 'POST',
+      success: function(responseData, textStatus, jqXHR) {
+          console.log(responseData);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+      }
+});
+
+
+    });
+
+>>>>>>> a9f7b3d7dc88a27939847e12806824636b158dba
     $('.btn_submit').removeAttr("data-dismiss");
     if(!$(".new_todo_input").val()){
       $('.alert').show();
