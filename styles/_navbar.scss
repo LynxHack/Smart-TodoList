@@ -11,7 +11,8 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    padding: 2em 1em 3em;
+    font-size: 1.5em;
+    padding: 1em 1em 3em;
   }
 
   a:hover {
@@ -19,19 +20,25 @@
   }
 }
 
+#dropdownMenu1{
+  position: relative;
+  top: 0.3em;
+  right: 0em;
+}
+
 #logo{
   flex: 1;
   margin: auto;
 
   img {
-    max-width: 25vw;
+    max-width: 10em;
   }
 }
 
 
 div.dropdown {
   margin-right: 3em;
-  padding: 2em 1em 3em;
+  padding: 1em 1em 3em;
 }
 
 ul.dropdown-menu {
