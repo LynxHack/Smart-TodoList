@@ -8,6 +8,7 @@ const bodyParser      = require("body-parser");
 const methodOverride  = require("method-override");
 const sass            = require("node-sass-middleware");
 const app             = express();
+const db              = require('./db/functions/dbModule.js');
 
 
 const morgan          = require('morgan');
@@ -40,7 +41,10 @@ app.use("/todos", todosRoutes);
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  db.getAllTodo().then(function (result) {
+    console.log(result);
+    res.render("index", {result: result});
+  });
 });
 
 //yelp
