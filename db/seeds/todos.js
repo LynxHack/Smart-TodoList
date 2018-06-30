@@ -17,7 +17,8 @@ exports.seed = function (knex, Promise) {
       author: 'J. K. Rowling',
       address: '90210',
       latitude: '49.282',
-      longtitude: '-123.10834299999999'
+      longtitude: '-123.10834299999999',
+      hash: 'g9U9x2t4UPGSik7pZXv01bB3XSs='
     })
 ])
 };
