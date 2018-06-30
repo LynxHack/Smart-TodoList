@@ -9,8 +9,8 @@ function yelpsearch(rest_name, lat, long, numitems){
     var options = {
       url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${lat}&longitude=${long}&limit=${numitems}`,
       headers: {
-        'User-Agent': 'request',  
-        'Authorization': `Bearer ${yelpkey}`
+        'User-Agent': 'request',
+        'Authorization': `Bearer ${process.env.YELPKEY}`
       },
     };
     request(options, function(err, res, body){
@@ -28,34 +28,45 @@ function yelpsearch(rest_name, lat, long, numitems){
   })
 }
 
-var imdbkey = process.env.IMDBKEY;
-function moviesearch(moviestring, imdbkey){
-  return new Promise((resolve, result) => {
-      const moviename = moviestring.split(' ').join('+');
-      request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
-        if(error) reject(error);
-        const result = JSON.parse(response.body);
-        const title = result.Title;
-        const image = result.Poster;
-        const rating = result.imdbRating;
-        const url = result.Website;
-        const runtime = result.Runtime;
-        const production = result.Production;
-        resolve({title, image, rating, url, runtime, production});;  
-      });
+  //var moviename = 'titanic';
+  //moviesearch(moviename, imdbkey);
+
+  var imdbkey = process.env.IMDBKEY;
+  function moviesearch(moviestring, imdbkey){
+    const moviename = moviestring.split(' ').join('+');
+    request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
+      if(error) throw err;
+      console.log(response.body); // Print the response status code if a response was received
+      //insert something to send info back to client end
     });
   };
-  
+
+  var test0 = 'bible';
+  var test1 = 'Harry Potter';
+  var test2 = 'pizza hut';
+  var test3 = 'mcdonalds';
+  var test4 = 'burger king';
+  var test5 = 'titanic';
+  var test6 = 'artemis fowl';
+  var test7 = 'avengers';
+  var test8 = 'breaking bad';
+  var test9 = 'fresh slice';
+
+  var wolframkey = process.env.WOLFRAMKEY;
+
+  // Test function call
+  // categorize(test0, wolframkey)
+  // .then((result) => {console.log(result)});
 
   // Identifiers for each category
   const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
   const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word', 'author', 'write', 'writer'];
   const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch', 'series', 'documentary', 'show'];
-  
+
   function classify(categories){
-    let result = "product"; 
+    let result = "product";
     let string = categories[0].toLowerCase();
-  
+
     //if the first result does not have a defined category, try others
     if(!store.concat(book, movietv).some(e => string.includes(e)))
       string = categories.join(',').toLowerCase();
@@ -65,20 +76,20 @@ function moviesearch(moviestring, imdbkey){
       result = "movie_tv";
     else if(book.some(e => string.includes(e)))
       result = "book";
-    
+
     return result;
   }
-  
+
   function categorize(search, wolframkey){
     return new Promise((resolve, reject) => {
       var stringquery = search.split(' ').join('+');
       request(`https://api.wolframalpha.com/v2/query?input=${stringquery}&format=image,plaintext&output=JSON&appid=${wolframkey}`, function (error, response, body) {
         if(error) reject(error);
-  
+
         var parsedresponse = JSON.parse(response.body);
         var categories0 = [];
         var categories1 = parsedresponse.queryresult.datatypes.split(',');
-  
+
         if(parsedresponse.queryresult.hasOwnProperty('assumptions')){
           var assumptions = parsedresponse.queryresult.assumptions;
           var result = Array.isArray(assumptions) ? assumptions[0].values : assumptions.values;
@@ -91,7 +102,7 @@ function moviesearch(moviestring, imdbkey){
       });
     });
   }
-  
+
   var parseString = require('xml2js').parseString
   const goodreadskey = process.env.GOODREADSKEY;
   function booksearch(bookname, key){
@@ -112,7 +123,10 @@ function moviesearch(moviestring, imdbkey){
       });
     })
   }
-  
+  //below is deprecated since it now passes back promises
+  //booksearch('Pride and Prejudice', goodreadskey);
+
+
   const scraper = require('google-search-scraper');
   function googlesearch(searchstring, searchsite, numresults){
     return new Promise(function(resolve, reject){
@@ -124,7 +138,7 @@ function moviesearch(moviestring, imdbkey){
         };
         scraper.search(options, function(err, url, meta) {
           if(err) reject(err);
-  
+
           if(url && url.includes(searchsite) && !url.split('/').slice(-1).pop().includes("s?ie=UTF8") && results.length < numresults){
             results.push(url);
           }
@@ -133,7 +147,7 @@ function moviesearch(moviestring, imdbkey){
             resolve(results);
           }
         });
-    });  
+    });
   }
 
   module.exports = {
@@ -143,4 +157,3 @@ function moviesearch(moviestring, imdbkey){
     moviesearch   : moviesearch ,
     yelpsearch    : yelpsearch
   }
-  

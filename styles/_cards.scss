@@ -13,6 +13,26 @@ div.card:hover {
   border: 1px black solid;
 }
 
+.card-imgbox{
+  width: 250px;
+  max-height: 140px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.card-imgbox:hover{
+  max-height: 10000px;
+  transition: max-height 5s ease-in-out;
+}
+
+img.card-img-top{
+  object-fit: cover;
+  max-width:100%;
+  height: 100%;
+  width: 100%;
+}
+
+
 img.card-img-top{
   width:100%;
 }
@@ -31,7 +51,12 @@ button.btn-danger-edit{
   width: 6em;
 }
 
-footer {
-  height: 10em;
-  background-color: black;
+label.is_done_label{
+  margin-top: 24px;
+  width: 100%;
+  border-bottom: 10px red solid;
+}
+
+.border-green{
+  border-bottom: 10px green solid;
 }

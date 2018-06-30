@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+  if (!("geolocation" in navigator)) {
+
+  }
+
   // Smooth scrolling on anchor
   $(document).on('click', 'a[href^="#"]', function (event){
     event.preventDefault();
@@ -10,6 +14,7 @@ $(document).ready(function() {
   });
 
   // Sending alerts upon empty input
+
   $('.alert').hide();
 
   $(".btn_submit").click(function() {
@@ -26,11 +31,12 @@ $(document).ready(function() {
       type: 'POST',
       success: function(responseData, textStatus, jqXHR) {
           console.log(responseData);
+          appendCard(responseData);
       },
       error: function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
       }
-});
+    });
 
 
     });
@@ -71,7 +77,7 @@ $(document).ready(function() {
   $(".btn_add_close").click(function() {
     $(".alert").hide();
   });
-  // End of alert hiding events
+
 
 
   // Detecting current page

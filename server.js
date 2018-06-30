@@ -43,6 +43,13 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+
+// app.get('/test', (req,res)=>{
+//   //call the Wolven api over here.
+
+// });
+
+
 //yelp
 var request = require('request');
 var yelpkey = process.env.YELPKEY;
@@ -58,7 +65,7 @@ function yelpsearch(rest_name, lat, long, numitems){
   var options = {
     url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
     headers: {
-      'User-Agent': 'request',  
+      'User-Agent': 'request',
       'Authorization': `Bearer ${yelpkey}`
     },
   };
@@ -96,7 +103,7 @@ function moviesearch(moviestring, imdbkey){
   });
 };
 
-var test0 = 'bible'; 
+var test0 = 'bible';
 var test1 = 'Harry Potter';
 var test2 = 'pizza hut';
 var test3 = 'mcdonalds';
@@ -111,7 +118,7 @@ var wolframkey = process.env.WOLFRAMKEY;
 
 // Test function call
 // categorize(test0, wolframkey)
-// .then((result) => {console.log(result)});
+// .then((result) => {console.log("this one")});
 
 // Identifiers for each category
 const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
@@ -119,7 +126,7 @@ const book    = ['fiction', 'book', 'fict', 'novel', 'read', 'text', 'word', 'au
 const movietv = ['movie', 'film', 'tv', 'tele', 'program', 'watch', 'series', 'documentary', 'show'];
 
 function classify(categories){
-  let result = "product"; 
+  let result = "product";
   const string = categories[0].toLowerCase();
 
   //if the first result does not have a defined category, try others
@@ -131,7 +138,7 @@ function classify(categories){
     result = "movie_tv";
   else if(book.some(e => string.includes(e)))
     result = "book";
-  
+
   return result;
 }
 
@@ -200,7 +207,7 @@ function googlesearch(searchstring, searchsite, numresults){
           resolve(results);
         }
       });
-  });  
+  });
 }
 //Waits until all results are completed
 // googlesearch('eon colfer', 'amazon.ca', 1)
