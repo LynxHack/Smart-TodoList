@@ -1,12 +1,9 @@
-// $(document).ready(function() {
+$(document).ready(function() {
 
-<<<<<<< HEAD
   // 1 : 'media_todos',
   // 2 : 'restaurant_todos',
   // 3 : 'book_todos',
   // 4 : 'product_todos'
-=======
->>>>>>> client_side_data_manipulation
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
 
@@ -68,7 +65,7 @@
       }
   });
     switch (todoObject.type_id){
-      case 1: 
+      case 1:
         return card = "<div class=\"card\">" +
         "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img +"></div>" +
         "<div class=\"card-body\">" +
@@ -123,7 +120,7 @@
         "</div>" +
       "<div>" ;
     }
-  }
+  });
 
   // 1 : 'media_todos',
   // 2 : 'restaurant_todos',
@@ -135,7 +132,7 @@
       case 2: $(".food").append(createTodoElement(todoObject)); break;
       case 3: $(".books").append(createTodoElement(todoObject)); break;
       case 4: $(".products").append(createTodoElement(todoObject)); break;
-    
+
     }
   }
 
