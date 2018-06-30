@@ -55,6 +55,7 @@ module.exports = {
 
   generatecard: function (todo, category, lat, long) {
     return new Promise((resolve, reject) => {
+      
       let card = {};
       switch (category) {
         case "book":
