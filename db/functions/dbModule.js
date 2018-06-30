@@ -7,104 +7,67 @@ const tables = {
   4: 'product_todos'
 }
 
-// cb function needs to be used to return array of results
+const createNewTodo = function (type_id,
+  name,
+  img,
+  showtime,
+  rating,
+  description,
+  price,
+  website,
+  due_date,
+  author,
+  address,
+  is_done,
+  latitude,
+  longitude) {
 
-
-// const newBookTodo = function (name, img, author, rating, due_date) {
-
-//   knex.insert({
-//     name: name,
-//     img: img,
-//     author: author,
-//     rating: rating,
-//     due_date: due_date,
-//     type_id: 3
-//   }, 'id')
-//     .into('book_todos')
-//     .then(function (id) {
-//       console.log(`Success ${id} entered`);
-//     })
-//     .catchReturn();
-// }
-
-
-// const newMediaTodo = function (name, img, showtime, rating, due_date) {
-
-//   knex.insert({
-//     name: name,
-//     img: img,
-//     showtime: showtime,
-//     rating: rating,
-//     due_date: due_date,
-//     type_id: 1
-//   }, 'id')
-//     .into('media_todos')
-//     .then(function (id) {
-//       console.log(`Success ${id} entered`);
-//     })
-//     .catchReturn();
-// }
-
-
-// const newProductTodo = function (name, img, description, price, website, rating, due_date) {
-
-//   knex.insert({
-//     name: name,
-//     img: img,
-//     description: description,
-//     price: price,
-//     website: website,
-//     rating: rating,
-//     due_date: due_date,
-//     type_id: 4
-//   }, 'id')
-//     .into('product_todos')
-//     .then(function (id) {
-//       console.log(`Success ${id} entered`);
-//     })
-//     .catchReturn();
-// }
-
-
-// const newRestaurantTodo = function (name, img, location, website, rating, due_date) {
-
-//   knex.insert({
-//     name: name,
-//     img: img,
-//     location: location,
-//     website: website,
-//     rating: rating,
-//     due_date: due_date,
-//     type_id: 2
-//   }, 'id')
-//     .into('restaurant_todos')
-//     .then(function (id) {
-//       console.log(`Success ${id} entered`);
-//     })
-//     .catchReturn();
-// }
-// newTodo: function (card, lat, long) {
-//   switch (card.type_id) {
-//     case 1:
-//       newMediaTodo(card.name, card.img, card.showtime, card.rating, card.due_date);
-//       break;
-
-//     case 2:
-//       newRestaurantTodo(card.name, card.defaultimage, card.location, card.website, card.rating);
-//       break;
-
-//     case 3:
-//       newBookTodo(card.name, card.img, card.author, card.rating)
-//       break;
-
-//     case 4:
-//       newProductTodo(card.name, null, null, null, card.website, null)
-//       break;
-
-//   }
-// }
+  knex.insert({
+    types_id: type_id,
+    name: name,
+    img: img,
+    showtime: showtime,
+    rating: rating,
+    description: description,
+    price: price,
+    website: website,
+    due_date: due_date,
+    author: author,
+    address: address,
+    is_done: is_done,
+    latitude: latitude,
+    longtitude: longitude
+  }, 'id')
+    .into('todos')
+    .then(function (id) {
+      console.log(`Success ${id} entered`);
+    })
+}
 
 module.exports = {
+
+  newTodo: function (card, lat, long) {
+    console.log(card);
+    
+    switch (card.type_id) {
+      case 1:
+        createNewTodo(1, card.title, card.img, null, card.rating, null, null, null, null, null, null, null, null, null);
+        break;
+
+      case 2:
+        createNewTodo(2, card.name, card.img, null, card.rating, null, null, card.url, null, null, card.location, null, card.latitude, card.longitude);
+        break;
+
+      case 3:
+        createNewTodo(3, card.name, card.image, null, card.rating, null, null, null, null, card.author, null, false, null, null);
+        break;
+
+      case 4:
+        createNewTodo(4, card.name, null, null, null, null, null, card.website, null, null, null, null, null, null);
+        break;
+
+    }
+  },
 
 
   deleteTodo: function (id, type_id) {
@@ -220,9 +183,9 @@ module.exports = {
 
   getAllTodo: function () {
     return knex('todos').select('*')
-        .then(function (records) {
-           // already returns an array you can do other things here
-           return records;
-        })
+      .then(function (records) {
+        // already returns an array you can do other things here
+        return records;
+      })
   }
 }
