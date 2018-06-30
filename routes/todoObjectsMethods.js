@@ -77,9 +77,9 @@ module.exports = {
           break;
 
         case "product":
-          search.googlesearch(todo, "amazon.ca", 1)
-            .then((url) => {
-              card = new this.card(4, todo, null, null, null, null, null, url.pop(), null, null, null, null, null, null, randomHash);
+          search.walmartsearch(todo)
+            .then((prod) => {
+              card = new this.card(4, prod.name, prod.image, null, prod.rating, prod.description, prod.price, prod.url, null, null, null, null, null, null, randomHash);
               db.newTodo(card, lat, long);       
               resolve(card);
             })

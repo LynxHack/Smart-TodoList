@@ -222,6 +222,28 @@ function googlesearch(searchstring, searchsite, numresults){
 //   console.log(err)
 // });
 
+walmartsearch('macbook pro').then((test)=> console.log(test));
+
+function walmartsearch(productstring){
+  return new Promise((resolve, reject) => {
+    const product = productstring.split(' ').join('+');
+    const url =`http://api.walmartlabs.com/v1/search?apiKey=${process.env.WALMARTKEY}&numItems=1&query=${product}`
+    
+    request(url, (error, response, body) => {
+        if(error) reject(error);
+        const result = JSON.parse(body);
+        const name = result.items[0].name;
+        const price = result.items[0].salePrice;
+        const description = result.items[0].shortDescription;
+        const url = result.items[0].productUrl;
+        const rating = result.items[0].customerRating;
+        const image = result.items[0].largeImage;
+        resolve({name, price, description, url, rating, image});
+    });
+  });
+}
+
+
 app.post("/:newtodo", (req, res)=>{
   console.log('hi');
 });
