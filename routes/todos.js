@@ -17,8 +17,8 @@ router.get('/', function (req, res) {
 
 // get single todo
 router.get('/:id', function (req, res) {
-  db.getTodo(req.params.id, (err, result) => {
-    res.json({ err: err, result: result });
+  db.getTodo(req.params.hash, (err, result) => {
+    res.send({ err: JSON.stringify(err), result: JSON.stringify(result) });
   });
 });
 
@@ -55,8 +55,8 @@ router.post('/:id/isdone', function (req, res) {
 
 // delete todo
 router.delete('/:id', function (req, res) {
-  db.deleteTodo(req.params.id);
-  res.redirect(200, '/');
+  db.deleteTodo(req.params.hash);
+  res.send(200, 'Success Deleted Record');
 })
 
 
