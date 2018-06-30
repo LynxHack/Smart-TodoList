@@ -10,6 +10,7 @@ require('dotenv').config();
 // get all todos
 router.get('/', function (req, res) {
   db.getAllTodo((err, result) => {
+    console.log(result);
     res.json({ err: err, result: result });
   });
 });

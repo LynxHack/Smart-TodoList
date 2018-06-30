@@ -1,5 +1,14 @@
 $(document).ready(function() {
-
+  $.ajax({datatype: "json",
+      url: '/todos',
+      type: 'GET',
+      success: function(responseData, textStatus, jqXHR) {
+          responseData.result.forEach((x) => {appendCard(x)});
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+      }
+  });
   // 1 : 'media_todos',
   // 2 : 'restaurant_todos',
   // 3 : 'book_todos',
@@ -7,7 +16,7 @@ $(document).ready(function() {
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
     console.log(todoObject);
-    switch (todoObject.type_id){
+    switch (todoObject.types_id){
       case 1:
         return card = "<div class=\"card\" id=\"" + todoObject.hash + "\">" +
         "<div class=\"card-imgbox\"><a target=\"_blank\" href=\"https://www.rottentomatoes.com/search/?search=" + todoObject.name + "\"><img class=\"card-img-top\" src=" + todoObject.img +"></a></div>" +
@@ -87,7 +96,7 @@ $(document).ready(function() {
   // 3 : 'book_todos',
   // 4 : 'product_todos'
   function appendCard(todoObject) {
-    switch (todoObject.type_id){
+    switch (todoObject.types_id){
       case 1: $(".movies").append(createTodoElement(todoObject)); break;
       case 2: $(".food").append(createTodoElement(todoObject)); break;
       case 3: $(".books").append(createTodoElement(todoObject)); break;

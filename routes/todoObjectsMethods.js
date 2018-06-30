@@ -5,7 +5,7 @@ const defaultimage = 'https://images.unsplash.com/photo-1474898856510-884a2c0be5
 
 module.exports = {
 
-  card: function (type_id,
+  card: function (types_id,
     name,
     img,
     showtime,
@@ -20,7 +20,7 @@ module.exports = {
     latitude,
     longitude,
     hash) {
-    this.type_id = type_id;
+    this.types_id = types_id;
     this.name = name;
     this.img = img;
     this.showtime = showtime;
