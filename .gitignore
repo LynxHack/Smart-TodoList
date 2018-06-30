@@ -5,4 +5,3 @@ public/styles
 *.sqlite3
 package-lock.json
 knexTest.js
-iOSWebView/*
