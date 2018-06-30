@@ -49,9 +49,9 @@ const createNewTodo = function (type_id,
 module.exports = {
 
   newTodo: function (card, lat, long) {
-    console.log(card);
+    console.log("Func newTodo "+card);
 
-    switch (card.type_id) {
+    switch (card.types_id) {
       case 1:
         createNewTodo(1, card.title, card.img, null, card.rating, null, null, null, null, null, null, null, null, null, card.hash);
         break;
@@ -67,7 +67,11 @@ module.exports = {
       case 4:
         createNewTodo(4, card.name, null, null, null, null, null, card.website, null, null, null, null, null, null, card.hash);
         break;
-
+      
+        default:
+        console.log("hit default");
+        break;
+        
     }
   },
 
