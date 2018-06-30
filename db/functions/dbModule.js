@@ -170,10 +170,10 @@ module.exports = {
 
 
   // cb function needs to be used to return results object
-  getTodo: function (id, type_id, cb) {
+  getTodo: function (id, cb) {
 
     return knex.first('*')
-      .from(tables[type_id])
+      .from('todos')
       .where('id', id)
       .asCallback(cb);
 
@@ -182,7 +182,7 @@ module.exports = {
 
   getAllTodo: function (cb) {
     return knex.select('*')
-      .from('todos')
-      .asCallback(cb);
+    .from('todos')
+    .asCallback(cb);
   }
 }
