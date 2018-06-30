@@ -8,6 +8,7 @@ const bodyParser      = require("body-parser");
 const methodOverride  = require("method-override");
 const sass            = require("node-sass-middleware");
 const app             = express();
+const db              = require('./db/functions/dbModule.js');
 
 
 const morgan          = require('morgan');
@@ -40,7 +41,10 @@ app.use("/todos", todosRoutes);
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  db.getAllTodo((err, result) => {
+    console.log('Result just before res.render' + JSON.stringify(result)); 
+    res.render("index", {result: JSON.stringify(result)});
+  })
 });
 
 
