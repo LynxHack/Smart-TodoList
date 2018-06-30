@@ -61,7 +61,7 @@ module.exports = {
         break;
 
       case 3:
-        createNewTodo(3, card.name, card.image, null, card.rating, null, null, null, null, card.author, null, false, null, null, card.hash);
+        createNewTodo(3, card.name, card.img, null, card.rating, null, null, null, null, card.author, null, false, null, null, card.hash);
         break;
 
       case 4:

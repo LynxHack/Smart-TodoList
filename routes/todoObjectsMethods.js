@@ -48,7 +48,7 @@ module.exports = {
         case "book":
           search.booksearch(todo, process.env.GOODREADSKEY)
             .then((book) => {
-              card = new this.card(3, book.title, book.image, null, book.rating, null, null, null, null, book.author, null, false, null, null, randomHash);
+              card = new this.card(3, book.title, book.image, null, book.rating, null, null, book.url, null, book.author, null, false, null, null, randomHash);
               db.newTodo(card, lat, long);
               resolve(card);
             })
@@ -100,7 +100,7 @@ module.exports = {
       case "book":
         search.booksearch(todo, process.env.GOODREADSKEY)
           .then((book) => {
-            card = new this.card(3, book.title, book.image, null, book.rating, null, null, null, null, book.author, null, false, null, null, randomHash);
+            card = new this.card(3, book.title, book.image, null, book.rating, null, null, book.url, null, book.author, null, false, null, null, randomHash);
             db.newTodo(card, lat, long);
             resolve(card);
           })
