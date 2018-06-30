@@ -1,6 +1,4 @@
 const moment = require('moment');
-const crypto = require('crypto');
-const hash = crypto.createHash('sha256');
 const search = require('../apis.js');
 const db = require('../db/functions/dbModule.js');
 const defaultimage = 'https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940';
@@ -44,7 +42,7 @@ module.exports = {
   generatecard: function (todo, category, lat, long) {
     return new Promise((resolve, reject) => {
 
-      const randomHash = hash.update(`todo${moment().format()}`).digest('hex');
+      let randomHash = require('crypto').createHash('sha256').update(`todo${moment().format()}`).digest('hex');
       let card = {};
       switch (category) {
         case "book":
@@ -93,5 +91,56 @@ module.exports = {
           resolve("Failed to identify cateogory");
       }
     });
+  },
+
+  changeCategory: function (todo, category) {
+
+    let randomHash = require('crypto').createHash('sha256').update(`todo${moment().format()}`).digest('hex');
+    switch (category) {
+      case "book":
+        search.booksearch(todo, process.env.GOODREADSKEY)
+          .then((book) => {
+            card = new this.card(3, book.title, book.image, null, book.rating, null, null, null, null, book.author, null, false, null, null, randomHash);
+            db.newTodo(card, lat, long);
+            resolve(card);
+          })
+          .catch((error) => { reject(error) });
+        break;
+
+      case "store":
+        search.yelpsearch(todo, lat, long, 1)
+          .then((rest) => {
+            card = new this.card(2, rest.name, defaultimage, null, rest.rating, null, null, rest.url, null, null, rest.location, null, rest.latitude, rest.longitude, randomHash);
+            db.newTodo(card, lat, long);
+            resolve(card);
+          })
+          .catch((error) => { reject(error) });
+        break;
+
+      case "movie_tv":
+        search.moviesearch(todo, process.env.IMDBKEY)
+          .then((media) => {
+            card = new this.card(1, media.title, media.image, null, media.rating, null, null, null, null, null, null, null, null, null, randomHash);
+            db.newTodo(card, lat, long);
+            resolve(card);
+          })
+          .catch((error) => { reject(error) });
+        break;
+
+      case "product":
+        search.walmartsearch(todo)
+          .then((prod) => {
+            card = new this.card(4, prod.name, prod.image, null, prod.rating, prod.description, prod.price, prod.url, null, null, null, null, null, null, randomHash);
+            db.newTodo(card, lat, long);
+            resolve(card);
+          })
+          .catch((error) => {
+            reject(error)
+          });
+        break;
+
+      default:
+        resolve("Failed to identify cateogory");
+    }
   }
 }
