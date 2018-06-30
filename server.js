@@ -41,8 +41,8 @@ app.use("/todos", todosRoutes);
 
 // Home page
 app.get("/", (req, res) => {
-  db.getAllTodo().then(function (result) {
-    console.log(result);
+  db.getAllTodo((result) => {
+    console.log('Result just before res.render' + result);
     res.render("index", {result: result});
   });
 });

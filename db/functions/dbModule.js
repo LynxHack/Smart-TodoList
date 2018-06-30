@@ -48,7 +48,7 @@ module.exports = {
 
   newTodo: function (card, lat, long) {
     console.log(card);
-    
+
     switch (card.type_id) {
       case 1:
         createNewTodo(1, card.title, card.img, null, card.rating, null, null, null, null, null, null, null, null, null);
@@ -175,17 +175,14 @@ module.exports = {
     return knex.first('*')
       .from(tables[type_id])
       .where('id', id)
-      .asCallback(cb)
-      .catchReturn()
+      .asCallback(cb);
 
   },
 
 
-  getAllTodo: function () {
-    return knex('todos').select('*')
-      .then(function (records) {
-        // already returns an array you can do other things here
-        return records;
-      })
+  getAllTodo: function (cb) {
+    return knex.select('*')
+      .from('todos')
+      .asCallback(cb);
   }
 }
