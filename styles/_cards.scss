@@ -18,11 +18,11 @@ div.card:hover {
   max-height: 140px;
   overflow: hidden;
   margin: auto;
+  transition: max-height 3s ease-in-out;
 }
 
 .card-imgbox:hover{
-  max-height: 10000px;
-  transition: max-height 5s ease-in-out;
+  max-height: 1000px;
 }
 
 img.card-img-top{
@@ -37,22 +37,18 @@ img.card-img-top{
   width:100%;
 }
 
-ul.list-group-flush{
-  text-align: left;
-}
-
 button.btn-info-edit{
-  margin-top: 12em;
+  margin-top: 7em;
   width: 6em;
 }
 
 button.btn-danger-edit{
-  margin-top: 12em;
+  margin-top: 7em;
   width: 6em;
 }
 
 label.is_done_label{
-  margin-top: 24px;
+  margin-top: 27px;
   width: 100%;
   border-bottom: 10px red solid;
 }

@@ -6,13 +6,17 @@ $(document).ready(function() {
   // 4 : 'product_todos'
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
+    console.log(todoObject);
     switch (todoObject.type_id){
       case 1:
         return card = "<div class=\"card\">" +
         "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img +"></div>" +
         "<div class=\"card-body\">" +
-          "<h4 class=\"card-title\">Placeholder</h4>" +
-          "<p class=\"card-text\">Dummie Text</p>" +
+          "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
+          "<ul class=\"list-group list-group-flush\">" +
+            "<li class=\"list-group-item\"> Nearest Location: " + todoObject.location +"</li>" +
+            "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5</li>" +
+          "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
         "</div>" +
@@ -23,9 +27,13 @@ $(document).ready(function() {
         "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.defaultimage +"></div>" +
         "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
-          "<p class=\"card-text\">" + todoObject.location + "</p>" +
+          "<ul class=\"list-group list-group-flush\">" +
+            "<li class=\"list-group-item\"> Nearest Location: " + todoObject.location +"</li>" +
+            "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5</li>" +
+          "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+          "<label class=\"is_done_label\"></label>" +
         "</div>" +
       "<div>" ;
 
@@ -34,9 +42,13 @@ $(document).ready(function() {
         "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img +"></div>" +
         "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
-          "<p class=\"card-text\">Dummie Text</p>" +
+          "<ul class=\"list-group list-group-flush\">" +
+            "<li class=\"list-group-item\"> Author: "  + todoObject.author +"</li>" +
+            "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5.00</li>" +
+          "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+          "<label class=\"is_done_label\"></label>" +
         "</div>" +
       "<div>" ;
 
@@ -65,19 +77,31 @@ $(document).ready(function() {
   }
 
 
-   $('.alert').hide();
+  // 1 : 'media_todos',
+  // 2 : 'restaurant_todos',
+  // 3 : 'book_todos',
+  // 4 : 'product_todos'
+  function appendCard(todoObject) {
+    switch (todoObject.type_id){
+      case 1: $(".movies").append(createTodoElement(todoObject)); break;
+      case 2: $(".food").append(createTodoElement(todoObject)); break;
+      case 3: $(".books").append(createTodoElement(todoObject)); break;
+      case 4: $(".products").append(createTodoElement(todoObject)); break;
 
-   $(".btn_submit").click(function() {
+    }
+  }
+
+    $('.alert').hide();
+
+  $(".btn_submit").click(function() {
     //perform ajax post request
-    console.log($(".new_todo_input").val());
     var textboxval =$(".new_todo_input").val();
     const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
       const lat  = position.coords.latitude;
       const long = position.coords.longitude;
-      console.log(textboxval);
-      $.ajax({datatype: "json", 
-      url: '/todos', 
-      data: {text: textboxval,lat: lat , long: long}, 
+      $.ajax({datatype: "json",
+      url: '/todos',
+      data: {text: textboxval,lat: lat , long: long},
       type: 'POST',
       success: function(responseData, textStatus, jqXHR) {
           console.log(responseData);
@@ -100,23 +124,6 @@ $(document).ready(function() {
       $('.btn_submit').attr("data-dismiss", "modal");
     }
   })
-  // 1 : 'media_todos',
-  // 2 : 'restaurant_todos',
-  // 3 : 'book_todos',
-  // 4 : 'product_todos'
-  function appendCard(todoObject) {
-    switch (todoObject.type_id){
-      case 1: $(".movies").append(createTodoElement(todoObject)); break;
-      case 2: $(".food").append(createTodoElement(todoObject)); break;
-      case 3: $(".books").append(createTodoElement(todoObject)); break;
-      case 4: $(".products").append(createTodoElement(todoObject)); break;
-
-    }
-  }
-
-  // $(".btn_submit").click(function() {
-  //   appendCard();
-  // });
 
   var currCardId;
   var currCard;
@@ -138,8 +145,11 @@ $(document).ready(function() {
       e.preventDefault();
       $('#myModal_card_edit').modal();
 
-      currCardId = '#' + e.currentTarget.parentElement.parentElement.id;
-      currCard = $(currCardId);
+      currCardId = e.currentTarget.parentElement.parentElement.id;
+      console.log(currCardId);
+      currCard = $('#' + currCardId);
+
+      console.log(currCard);
 
         $('.btn-card-update').click(function(e) {
         // Updating new name if its not empty

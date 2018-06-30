@@ -15,42 +15,6 @@ $(document).ready(function() {
 
   // Sending alerts upon empty input
 
-  $('.alert').hide();
-
-  $(".btn_submit").click(function() {
-    //perform ajax post request
-    console.log($(".new_todo_input").val());
-    var textboxval =$(".new_todo_input").val();
-    const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
-      const lat  = position.coords.latitude;
-      const long = position.coords.longitude;
-      console.log(textboxval);
-      $.ajax({datatype: "json", 
-      url: '/todos', 
-      data: {text: textboxval,lat: lat , long: long}, 
-      type: 'POST',
-      success: function(responseData, textStatus, jqXHR) {
-          console.log(responseData);
-          appendCard(responseData);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-          console.log(errorThrown);
-      }
-    });
-
-
-    });
-
-    $('.btn_submit').removeAttr("data-dismiss");
-    if(!$(".new_todo_input").val()){
-      $('.alert').show();
-    } else {
-      $(".alert").hide();
-      $(".new_todo_input").val("");
-      $('.btn_submit').attr("data-dismiss", "modal");
-    }
-  })
-
   $(".btn-danger-edit").click(function(e) {
     e.preventDefault();
     $('#myModal_delete').modal().one('click', '#delete', function(e){

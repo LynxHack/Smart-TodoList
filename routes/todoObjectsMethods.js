@@ -6,6 +6,7 @@ module.exports = {
 
   newmedia: function (name, img, showtime, rating, due_date, is_done) {
     this.type_id = 1;
+    this.name = name;
     this.img = img;
     this.showtime = showtime;
     this.rating = rating;
@@ -38,7 +39,7 @@ module.exports = {
     this.type_id = 2;
     this.name = name;
     //currently hardcoded image
-    this.defaultimage = 'https://static.vecteezy.com/system/resources/previews/000/085/097/non_2x/free-restaurant-interior-vector.jpg';
+    this.defaultimage = 'https://images.freeimages.com/images/large-previews/7b7/restaurant-interior-1478508.jpg';
     this.location = location;
     this.latitude = latitude;
     this.longitude = longitude;
