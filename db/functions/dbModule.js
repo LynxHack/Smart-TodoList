@@ -72,48 +72,6 @@ module.exports = {
   },
 
 
-  editTodo: function (type_id,
-    name,
-    img,
-    showtime,
-    rating,
-    description,
-    price,
-    website,
-    due_date,
-    author,
-    address,
-    is_done,
-    latitude,
-    longitude,
-    hash) {
-
-    knex(tables[type_id])
-      .where({ id: id })
-      .update({
-        types_id: type_id,
-    name: name,
-    img: img,
-    showtime: showtime,
-    rating: rating,
-    description: description,
-    price: price,
-    website: website,
-    due_date: due_date,
-    author: author,
-    address: address,
-    is_done: is_done,
-    latitude: latitude,
-    longtitude: longitude,
-    hash: hash
-      })
-      .then(function (id) {
-        console.log(`${id} modified`);
-      })
-      .catchReturn();
-  },
-
-
   deleteTodo: function (hash) {
 
     knex('todos')
@@ -150,81 +108,81 @@ module.exports = {
 
   getAllTodo: function (cb) {
     return knex.select('*')
-    .from('todos')
-    .asCallback(cb);
+      .from('todos')
+      .asCallback(cb);
   }
 }
 
-editBookTodo: function (name, img, author, rating, due_date, type_id) {
+// editBookTodo: function (name, img, author, rating, due_date, type_id) {
 
-  knex(tables[type_id])
-    .where({ id: id })
-    .update({
-      name: (name || undefined),
-      image: (img || undefined),
-      author: (author || undefined),
-      rating: (rating || undefined),
-      due_date: (due_date || undefined)
-    })
-    .then(function (id) {
-      console.log(`${id} modified`);
-    })
-    .catchReturn();
-},
-
-
-editMediaTodo: function (name, img, showtime, rating, due_date, type_id) {
-
-  knex(tables[type_id])
-    .where({ id: id })
-    .update({
-      name: (name || undefined),
-      img: (img || undefined),
-      showtime: (showtime || undefined),
-      rating: (rating || undefined),
-      due_date: (due_date || undefined)
-    })
-    .then(function (id) {
-      console.log(`${id} modified`);
-    })
-    .catchReturn();
-},
+//   knex(tables[type_id])
+//     .where({ id: id })
+//     .update({
+//       name: (name || undefined),
+//       image: (img || undefined),
+//       author: (author || undefined),
+//       rating: (rating || undefined),
+//       due_date: (due_date || undefined)
+//     })
+//     .then(function (id) {
+//       console.log(`${id} modified`);
+//     })
+//     .catchReturn();
+// },
 
 
-editProductTodo: function (name, img, description, price, website, rating, due_date, type_id) {
+// editMediaTodo: function (name, img, showtime, rating, due_date, type_id) {
 
-  knex(tables[type_id])
-    .where({ id: id })
-    .update({
-      name: (name || undefined),
-      img: (img || undefined),
-      description: (description || undefined),
-      price: (price || undefined),
-      website: (website || undefined),
-      rating: (rating || undefined),
-      due_date: (due_date || undefined)
-    })
-    .then(function (id) {
-      console.log(`${id} modified`);
-    })
-    .catchReturn();
-},
+//   knex(tables[type_id])
+//     .where({ id: id })
+//     .update({
+//       name: (name || undefined),
+//       img: (img || undefined),
+//       showtime: (showtime || undefined),
+//       rating: (rating || undefined),
+//       due_date: (due_date || undefined)
+//     })
+//     .then(function (id) {
+//       console.log(`${id} modified`);
+//     })
+//     .catchReturn();
+// },
 
 
-editRestaurantTodo: function (name, img, location, website, rating, due_date, type_id) {
+// editProductTodo: function (name, img, description, price, website, rating, due_date, type_id) {
 
-  knex(tables[type_id])
-    .where({ id: id })
-    .update({
-      name: (name || undefined),
-      img: (img || undefined),
-      location: (location || undefined),
-      website: (website || undefined),
-      rating: (rating || undefined),
-      due_date: (due_date || undefined)
-    })
-    .then(function (id) {
-      console.log(`${id} modified`);
-    })
-    .catchReturn();
-},
+//   knex(tables[type_id])
+//     .where({ id: id })
+//     .update({
+//       name: (name || undefined),
+//       img: (img || undefined),
+//       description: (description || undefined),
+//       price: (price || undefined),
+//       website: (website || undefined),
+//       rating: (rating || undefined),
+//       due_date: (due_date || undefined)
+//     })
+//     .then(function (id) {
+//       console.log(`${id} modified`);
+//     })
+//     .catchReturn();
+// },
+
+
+// editRestaurantTodo: function (name, img, location, website, rating, due_date, type_id) {
+
+//   knex(tables[type_id])
+//     .where({ id: id })
+//     .update({
+//       name: (name || undefined),
+//       img: (img || undefined),
+//       location: (location || undefined),
+//       website: (website || undefined),
+//       rating: (rating || undefined),
+//       due_date: (due_date || undefined)
+//     })
+//     .then(function (id) {
+//       console.log(`${id} modified`);
+//     })
+//     .catchReturn();
+// },

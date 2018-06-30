@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
 
 
 // get single todo
-router.get('/:id', function (req, res) {
+router.get('/:hash', function (req, res) {
   db.getTodo(req.params.hash, (err, result) => {
     res.send({ err: JSON.stringify(err), result: JSON.stringify(result) });
   });
@@ -40,21 +40,25 @@ router.post('/', function (req, res) {
 
 
 // edit todo
-router.put('/:id', function (req, res) {
-  db.editTodo(req.body.id, req.body.name, req.body.due_date, req.body.types_id, req.body.users_id);
-  res.redirect(200, '/');
+router.put('/:hash', function (req, res) {
+  todo.changeCategory(req.body.name, req.body.category)
+  .then((card) => {
+    res.send(card);
+    db.deleteTodo(req.params.hash);
+  })
+  
 })
 
 
 // toggle is_done bool
-router.post('/:id/isdone', function (req, res) {
+router.post('/:hash/isdone', function (req, res) {
   db.toggleIsDoneTodo();
   res.redirect(200, '/');
 })
 
 
 // delete todo
-router.delete('/:id', function (req, res) {
+router.delete('/:hash', function (req, res) {
   db.deleteTodo(req.params.hash);
   res.send(200, 'Success Deleted Record');
 })
