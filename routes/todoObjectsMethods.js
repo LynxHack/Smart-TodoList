@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const hash = crypto.createHash('sha256');
 const search = require('../apis.js');
 const db = require('../db/functions/dbModule.js');
-const defaultimage = 'https://static.vecteezy.com/system/resources/previews/000/085/097/non_2x/free-restaurant-interior-vector.jpg';
+const defaultimage = 'https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940';
 
 module.exports = {
 
@@ -43,7 +43,7 @@ module.exports = {
 
   generatecard: function (todo, category, lat, long) {
     return new Promise((resolve, reject) => {
-      
+
       const randomHash = hash.update(`todo${moment().format()}`).digest('hex');
       let card = {};
       switch (category) {
@@ -81,7 +81,7 @@ module.exports = {
           search.walmartsearch(todo)
             .then((prod) => {
               card = new this.card(4, prod.name, prod.image, null, prod.rating, prod.description, prod.price, prod.url, null, null, null, null, null, null, randomHash);
-              db.newTodo(card, lat, long);       
+              db.newTodo(card, lat, long);
               resolve(card);
             })
             .catch((error) => {

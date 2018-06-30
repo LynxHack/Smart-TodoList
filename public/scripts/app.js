@@ -38,13 +38,14 @@ $(document).ready(function() {
       "<div>" ;
 
       case 3:
-        return card = "<div class=\"card\">" +
-        "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img +"></div>" +
+        return card = "<div class=\"card\" id=\"" + todoObject.hash + "\">" +
+        "<div class=\"card-imgbox\"><a href=\"https://www.google.com/search?tbm=bks&q=" + todoObject.name + "\" target=\"_blank\"><img class=\"card-img-top\" src=" + todoObject.img +"></a></div>" +
         "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
           "<ul class=\"list-group list-group-flush\">" +
             "<li class=\"list-group-item\"> Author: "  + todoObject.author +"</li>" +
             "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5.00</li>" +
+            "<li class=\"list-group-item\"> Category: Books </li>" +
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
@@ -129,6 +130,7 @@ $(document).ready(function() {
 
   var currCardId;
   var currCard;
+
   function editEvents(cate) {
 
     // danger/delete button clicked
@@ -148,7 +150,6 @@ $(document).ready(function() {
       $('#myModal_card_edit').modal();
 
       currCardId = e.currentTarget.parentElement.parentElement.id;
-      console.log(currCardId);
       currCard = $('#' + currCardId);
 
       console.log(currCard);
