@@ -13,8 +13,22 @@ div.card:hover {
   border: 1px black solid;
 }
 
+.card-imgbox{
+  width: 250px;
+  height: 120px;
+  margin: auto;
+}
+
+.card-imgbox:hover{
+  height: 100%;
+  transition: height 1s ease-in-out;
+}
+
 img.card-img-top{
-  width:100%;
+  object-fit: cover;
+  max-width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 ul.list-group-flush{
