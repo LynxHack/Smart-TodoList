@@ -1,5 +1,6 @@
 const moment = require('moment');
-const hash = require('crypto').createHash;
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256');
 const search = require('../apis.js');
 const db = require('../db/functions/dbModule.js');
 const defaultimage = 'https://static.vecteezy.com/system/resources/previews/000/085/097/non_2x/free-restaurant-interior-vector.jpg';
@@ -43,7 +44,7 @@ module.exports = {
   generatecard: function (todo, category, lat, long) {
     return new Promise((resolve, reject) => {
       
-      const randomHash = hash('sha1').update(`todo${moment().format()}`).digest('base64');
+      const randomHash = hash.update(`todo${moment().format()}`).digest('hex');
       let card = {};
       switch (category) {
         case "book":
