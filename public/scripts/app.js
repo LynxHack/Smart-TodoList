@@ -54,10 +54,13 @@ $(document).ready(function() {
 
       case 4:
       return card = "<div class=\"card\">" +
-      "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+      "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img + "></div>" +
       "<div class=\"card-body\">" +
-        "<h4 class=\"card-title\">Placeholder</h4>" +
-        "<p class=\"card-text\">Dummie Text</p>" +
+        "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
+        "<ul class=\"list-group list-group-flush\">" +
+          "<li class=\"list-group-item\"> Price: &#x24;"  +  todoObject.price +"</li>" +
+          "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5.00</li>" +
+        "</ul>" +
         "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
         "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
       "</div>" +
@@ -87,7 +90,6 @@ $(document).ready(function() {
       case 2: $(".food").append(createTodoElement(todoObject)); break;
       case 3: $(".books").append(createTodoElement(todoObject)); break;
       case 4: $(".products").append(createTodoElement(todoObject)); break;
-
     }
   }
 
