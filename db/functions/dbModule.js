@@ -1,87 +1,72 @@
 const knex = require('../../knex');
 
 const tables = {
-  1 : 'media_todos',
-  2 : 'restaurant_todos',
-  3 : 'book_todos',
-  4 : 'product_todos'
+  1: 'media_todos',
+  2: 'restaurant_todos',
+  3: 'book_todos',
+  4: 'product_todos'
 }
 
+const createNewTodo = function (type_id,
+  name,
+  img,
+  showtime,
+  rating,
+  description,
+  price,
+  website,
+  due_date,
+  author,
+  address,
+  is_done,
+  latitude,
+  longitude) {
+
+  knex.insert({
+    types_id: type_id,
+    name: name,
+    img: img,
+    showtime: showtime,
+    rating: rating,
+    description: description,
+    price: price,
+    website: website,
+    due_date: due_date,
+    author: author,
+    address: address,
+    is_done: is_done,
+    latitude: latitude,
+    longtitude: longitude
+  }, 'id')
+    .into('todos')
+    .then(function (id) {
+      console.log(`Success ${id} entered`);
+    })
+}
 
 module.exports = {
 
-  newBookTodo: function (name, img, author, rating, due_date) {
+  newTodo: function (card, lat, long) {
+    console.log(card);
+    
+    switch (card.type_id) {
+      case 1:
+        createNewTodo(1, card.title, card.img, null, card.rating, null, null, null, null, null, null, null, null, null);
+        break;
 
-    knex.insert({
-      name: name,
-      img: img,
-      author: author,
-      rating: rating,
-      due_date: due_date,
-      type_id: 3
-    }, 'id')
-      .into('book_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
+      case 2:
+        createNewTodo(2, card.name, card.img, null, card.rating, null, null, card.url, null, null, card.location, null, card.latitude, card.longitude);
+        break;
 
+      case 3:
+        createNewTodo(3, card.name, card.image, null, card.rating, null, null, null, null, card.author, null, false, null, null);
+        break;
 
-  newMediaTodo: function (name, img, showtime, rating, due_date) {
+      case 4:
+        createNewTodo(4, card.name, null, null, null, null, null, card.website, null, null, null, null, null, null);
+        break;
 
-    knex.insert({
-      name: name,
-      img: img,
-      showtime: showtime,
-      rating: rating,
-      due_date: due_date,
-      type_id: 1
-    }, 'id')
-      .into('media_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
-
-
-  newProductTodo: function (name, img, description, price, website, rating, due_date) {
-
-    knex.insert({
-      name: name,
-      img: img,
-      description: description,
-      price: price,
-      website: website,
-      rating: rating,
-      due_date: due_date,
-      type_id: 4
-    }, 'id')
-      .into('product_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
-  },
-
-
-  newRestaurantTodo: function (name, img, location, website, rating, due_date) {
-
-    knex.insert({
-      name: name,
-      img: img,
-      location:location,
-      website: website,
-      rating: rating,
-      due_date: due_date,
-      type_id: 2
-    }, 'id')
-      .into('restaurant_todos')
-      .then(function (id) {
-        console.log(`Success ${id} entered`);
-      })
-      .catchReturn();
+    }
   },
 
 
@@ -176,22 +161,13 @@ module.exports = {
   toggleIsDoneTodo: function (id, type_id) {
 
     const idInt = id;
-    knex.raw(`UPDATE ${tables[type_id]} SET is_done = NOT is_done WHERE id = ${id}`)
+    knex.raw(`UPDATE todos SET is_done = NOT is_done WHERE id = ${id}`)
       .then(function () {
         console.log(`Todo ${idInt} is_done changed`);
       })
       .catchReturn();
   },
 
-  // cb function needs to be used to return array of results
-  getAllTodo: function (type_id, cb) {
-
-    return knex.select()
-      .from(tables[type_id])
-      .asCallback(cb)
-      .catchReturn()
-
-  },
 
   // cb function needs to be used to return results object
   getTodo: function (id, type_id, cb) {
@@ -202,5 +178,14 @@ module.exports = {
       .asCallback(cb)
       .catchReturn()
 
+  },
+
+
+  getAllTodo: function () {
+    return knex('todos').select('*')
+      .then(function (records) {
+        // already returns an array you can do other things here
+        return records;
+      })
   }
 }
