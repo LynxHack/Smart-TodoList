@@ -20,7 +20,8 @@ const createNewTodo = function (type_id,
   address,
   is_done,
   latitude,
-  longitude) {
+  longitude,
+  hash) {
 
   knex.insert({
     types_id: type_id,
@@ -36,7 +37,8 @@ const createNewTodo = function (type_id,
     address: address,
     is_done: is_done,
     latitude: latitude,
-    longtitude: longitude
+    longtitude: longitude,
+    hash: hash
   }, 'id')
     .into('todos')
     .then(function (id) {
@@ -51,19 +53,19 @@ module.exports = {
 
     switch (card.type_id) {
       case 1:
-        createNewTodo(1, card.title, card.img, null, card.rating, null, null, null, null, null, null, null, null, null);
+        createNewTodo(1, card.title, card.img, null, card.rating, null, null, null, null, null, null, null, null, null, card.hash);
         break;
 
       case 2:
-        createNewTodo(2, card.name, card.img, null, card.rating, null, null, card.url, null, null, card.location, null, card.latitude, card.longitude);
+        createNewTodo(2, card.name, card.img, null, card.rating, null, null, card.url, null, null, card.location, null, card.latitude, card.longitude, card.hash);
         break;
 
       case 3:
-        createNewTodo(3, card.name, card.image, null, card.rating, null, null, null, null, card.author, null, false, null, null);
+        createNewTodo(3, card.name, card.image, null, card.rating, null, null, null, null, card.author, null, false, null, null, card.hash);
         break;
 
       case 4:
-        createNewTodo(4, card.name, null, null, null, null, null, card.website, null, null, null, null, null, null);
+        createNewTodo(4, card.name, null, null, null, null, null, card.website, null, null, null, null, null, null, card.hash);
         break;
 
     }
