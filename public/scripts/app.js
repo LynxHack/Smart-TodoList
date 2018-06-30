@@ -1,4 +1,4 @@
-$(document).ready(function() {
+// $(document).ready(function() {
 
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
@@ -36,20 +36,20 @@ $(document).ready(function() {
     var textboxval = $(".new_todo_input").val();
     appendCard(textboxval);
 
-    // const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
-    //   const lat  = position.coords.latitude;
-    //   const long = position.coords.longitude;
-    //   $.ajax({datatype: "json",
-    //   url: '/todos',
-    //   data: {text: textboxval,lat: lat , long: long},
-    //   type: 'POST',
-    //   success: function(responseData, textStatus, jqXHR) {
-    //       appendCard(textboxval);
-    //   },
-    //   error: function(jqXHR, textStatus, errorThrown) {
-    //       console.log(errorThrown);
-    //   }
-    // });
+    const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
+      const lat  = position.coords.latitude;
+      const long = position.coords.longitude;
+      $.ajax({datatype: "json",
+      url: '/todos',
+      data: {text: textboxval,lat: lat , long: long},
+      type: 'POST',
+      success: function(responseData, textStatus, jqXHR) {
+          appendCard(textboxval);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+      }
+    });
 
     $('.btn_submit').removeAttr("data-dismiss");
       if(!$(".new_todo_input").val()){
@@ -60,6 +60,60 @@ $(document).ready(function() {
         $('.btn_submit').attr("data-dismiss", "modal");
       }
   });
+    switch (todoObject.type_id){
+      case 1:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
+
+      case 2:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
+
+      case 3:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
+
+      case 4:
+        return card = "<div class=\"card\">" +
+        "<img class=\"card-img-top\" src=\"http://via.placeholder.com/80x60\"/>" +
+        "<div class=\"card-body\">" +
+          "<h4 class=\"card-title\">Placeholder</h4>" +
+          "<p class=\"card-text\">Dummie Text</p>" +
+          "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
+          "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        "</div>" +
+      "<div>" ;
+    }
+  }
+
+  function appendCard(todoObject) {
+    $(".movies").append(createTodoElement(todoObject));
+  }
+
+  // $(".btn_submit").click(function() {
+  //   appendCard();
+  // });
 
   var currCardId;
   var currCard;
@@ -167,41 +221,7 @@ $(document).ready(function() {
   //   editEvents($(this).attr("class"), $(this).children().attr("id"));
   // })
 
-
-
-
-
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

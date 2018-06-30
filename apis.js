@@ -2,18 +2,24 @@
 
 require('dotenv').config();
 var request = require('request');
-
+var yelpkey = process.env.YELPKEY;
 function yelpsearch(rest_name, lat, long, numitems){
-    const restaurantname = rest_name.split(' ').join('+');
+   return new Promise((resolve, reject) =>{
+    var restaurantname = rest_name.split(' ').join('+');
     var options = {
-      url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
+      url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${lat}&longitude=${long}&limit=${numitems}`,
       headers: {
+<<<<<<< HEAD
         'User-Agent': 'request',
         'Authorization': `Bearer ${process.env.YELPKEY}`
+=======
+        'User-Agent': 'request',  
+        'Authorization': `Bearer ${yelpkey}`
+>>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
       },
     };
     request(options, function(err, res, body){
-      if(err){console.log(err);}
+      if(err){ resolve(err) }
       const data = JSON.parse(body);
       const name = data.businesses[0].name;
       const rating = data.businesses[0].rating;
@@ -21,8 +27,10 @@ function yelpsearch(rest_name, lat, long, numitems){
       const phone = data.businesses[0].phone;
       const latitude = data.businesses[0].coordinates.latitude;
       const longitude = data.businesses[0].coordinates.longitude;
-      console.log(name, rating, location, phone, latitude, longitude);
+      const url = data.businesses[0].url;
+      resolve({name, location, rating, url, latitude, longitude});
     });
+<<<<<<< HEAD
   }
 
   //var moviename = 'titanic';
@@ -54,6 +62,29 @@ function yelpsearch(rest_name, lat, long, numitems){
   // Test function call
   // categorize(test0, wolframkey)
   // .then((result) => {console.log(result)});
+=======
+  })
+}
+
+var imdbkey = process.env.IMDBKEY;
+function moviesearch(moviestring, imdbkey){
+  return new Promise((resolve, result) => {
+      const moviename = moviestring.split(' ').join('+');
+      request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
+        if(error) reject(error);
+        const result = JSON.parse(response.body);
+        const title = result.Title;
+        const image = result.Poster;
+        const rating = result.imdbRating;
+        const url = result.Website;
+        const runtime = result.Runtime;
+        const production = result.Production;
+        resolve({title, image, rating, url, runtime, production});;  
+      });
+    });
+  };
+  
+>>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
 
   // Identifiers for each category
   const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
@@ -115,16 +146,19 @@ function yelpsearch(rest_name, lat, long, numitems){
             const rating = result.GoodreadsResponse.search[0].results[0].work[0].average_rating[0];
             const id = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]["_"];
             const url = `https://www.goodreads.com/book/show/${id}`;
-            //console.log(title, author, rating, image, url);
-            resolve({title, image, author, rating, url}); //pass back as single object
+            resolve({title, image, author, rating, url});
           });
       });
     })
   }
+<<<<<<< HEAD
   //below is deprecated since it now passes back promises
   //booksearch('Pride and Prejudice', goodreadskey);
 
 
+=======
+  
+>>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
   const scraper = require('google-search-scraper');
   function googlesearch(searchstring, searchsite, numresults){
     return new Promise(function(resolve, reject){
@@ -147,19 +181,11 @@ function yelpsearch(rest_name, lat, long, numitems){
         });
     });
   }
-  //Waits until all results are completed
-  // googlesearch('eon colfer', 'amazon.ca', 1)
-  // .then((results)=>{
-  //   console.log(results)
-  // })
-  // .catch((err) => {
-  //   console.log(err)
-  // });
 
   module.exports = {
-    google      : googlesearch,
-    book       : booksearch,
-    cat         : categorize  ,
-    movie       : moviesearch ,
-    yelp        : yelpsearch
+    googlesearch  : googlesearch,
+    booksearch    : booksearch,
+    categorize    : categorize  ,
+    moviesearch   : moviesearch ,
+    yelpsearch    : yelpsearch
   }

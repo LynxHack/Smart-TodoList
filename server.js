@@ -54,11 +54,11 @@ app.get("/", (req, res) => {
 var request = require('request');
 var yelpkey = process.env.YELPKEY;
 
-// var restaurantname = 'pizza hut';
-// var latitude = 49; //replace this with coordinate obtain from client
-// var longitude = -123; //replace this with coordinate obtain from client
-// var limit = 3;  //default 20, max 50;
-//yelpsearch(restaurantname, latitude, longitude, limit);
+var restaurantname = 'pizza hut';
+var latitude = 49; //replace this with coordinate obtain from client
+var longitude = -123; //replace this with coordinate obtain from client
+var limit = 1;  //default 20, max 50;
+//elpsearch(restaurantname, latitude, longitude, limit);
 
 function yelpsearch(rest_name, lat, long, numitems){
   const restaurantname = rest_name.split(' ').join('+');
@@ -78,20 +78,28 @@ function yelpsearch(rest_name, lat, long, numitems){
     const phone = data.businesses[0].phone;
     const latitude = data.businesses[0].coordinates.latitude;
     const longitude = data.businesses[0].coordinates.longitude;
-    console.log(name, rating, location, phone, latitude, longitude);
+    const url = data.businesses[0].url;
+    console.log(body);
+    console.log(name, location, rating, url, latitude, longitude);
   });
 }
 
-//var moviename = 'titanic';
-//moviesearch(moviename, imdbkey);
-
+var moviename = 'avengers';
 var imdbkey = process.env.IMDBKEY;
+// moviesearch(moviename, imdbkey);
+
 function moviesearch(moviestring, imdbkey){
   const moviename = moviestring.split(' ').join('+');
   request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
-    if(error) throw err;
-    console.log(response.body); // Print the response status code if a response was received
-    //insert something to send info back to client end
+    if(error) throw error;
+    const result = JSON.parse(response.body);
+    const title = result.Title;
+    const image = result.Poster;
+    const rating = result.imdbRating;
+    const url = result.Website;
+    const runtime = result.Runtime;
+    const production = result.Production;
+    console.log({title, image, rating, url, runtime, production});;  
   });
 };
 
@@ -109,8 +117,13 @@ var test9 = 'fresh slice';
 var wolframkey = process.env.WOLFRAMKEY;
 
 // Test function call
+<<<<<<< HEAD
 categorize(test0, wolframkey)
 .then((result) => {console.log("this one")});
+=======
+// categorize(test0, wolframkey)
+// .then((result) => {console.log(result)});
+>>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
 
 // Identifiers for each category
 const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
