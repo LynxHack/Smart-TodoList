@@ -9,26 +9,27 @@ $(document).ready(function() {
     console.log(todoObject);
     switch (todoObject.type_id){
       case 1:
-        return card = "<div class=\"card\">" +
-        "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img +"></div>" +
+        return card = "<div class=\"card\" id=\"" + todoObject.hash + "\">" +
+        "<div class=\"card-imgbox\"><a target=\"_blank\" href=\"https://www.rottentomatoes.com/search/?search=" + todoObject.name + "\"><img class=\"card-img-top\" src=" + todoObject.img +"></a></div>" +
         "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
           "<ul class=\"list-group list-group-flush\">" +
-            "<li class=\"list-group-item\"> Nearest Location: " + todoObject.location +"</li>" +
-            "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5</li>" +
+            "<li class=\"list-group-item\"> Nearest Location: " + todoObject.address +"</li>" +
+            "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/10</li>" +
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+          "<label class=\"is_done_label\"></label>" +
         "</div>" +
       "<div>" ;
 
       case 2:
-        return card = "<div class=\"card\">" +
-        "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.defaultimage +"></div>" +
+        return card = "<div class=\"card\" id=\"" + todoObject.hash + "\">" +
+        "<div class=\"card-imgbox\"><a href=\"" + todoObject.website + "\" target=\"_blank\"><img class=\"card-img-top\" src=" + todoObject.img +"></a></div>" +
         "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
           "<ul class=\"list-group list-group-flush\">" +
-            "<li class=\"list-group-item\"> Nearest Location: " + todoObject.location +"</li>" +
+            "<li class=\"list-group-item\"> Nearest Location: " + todoObject.address +"</li>" +
             "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/5</li>" +
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
@@ -107,7 +108,6 @@ $(document).ready(function() {
       data: {text: textboxval,lat: lat , long: long},
       type: 'POST',
       success: function(responseData, textStatus, jqXHR) {
-          console.log(responseData);
           appendCard(responseData);
       },
       error: function(jqXHR, textStatus, errorThrown) {
