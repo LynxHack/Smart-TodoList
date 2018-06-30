@@ -1,12 +1,9 @@
 const search = require('../apis.js');
+const db = require('../db/functions/dbModule.js');
 const defaultimage = 'https://static.vecteezy.com/system/resources/previews/000/085/097/non_2x/free-restaurant-interior-vector.jpg';
 
 module.exports = {
 
-<<<<<<< HEAD
-  newmedia: function (name, img, showtime, rating, due_date, is_done) {
-    this.type_id = 1;
-=======
   card: function (type_id,
     name,
     img,
@@ -22,7 +19,6 @@ module.exports = {
     latitude,
     longitude) {
     this.type_id = type_id;
->>>>>>> ecb6730eb673aa2856a1474506c3e86de0bb60df
     this.name = name;
     this.img = img;
     this.showtime = showtime;
@@ -34,17 +30,6 @@ module.exports = {
     this.author = author;
     this.address = address;
     this.is_done = is_done;
-<<<<<<< HEAD
-  },
-
-  newrestaurant: function (name, location, website, rating, latitude, longitude, due_date, is_done) {
-    this.type_id = 2;
-    this.name = name;
-    //currently hardcoded image
-    this.defaultimage = 'https://images.freeimages.com/images/large-previews/7b7/restaurant-interior-1478508.jpg';
-    this.location = location;
-=======
->>>>>>> ecb6730eb673aa2856a1474506c3e86de0bb60df
     this.latitude = latitude;
     this.longitude = longitude;
   },
@@ -60,7 +45,8 @@ module.exports = {
           search.booksearch(todo, process.env.GOODREADSKEY)
             .then((book) => {
               card = new this.card(3, book.title, book.image, null, book.rating, null, null, null, null, book.author, null, false, null, null);
-              resolve(card);
+              db.newTodo(card, lat, long);
+              resolve(true);
             })
             .catch((error) => { reject(error) });
           break;
@@ -69,7 +55,8 @@ module.exports = {
           search.yelpsearch(todo, lat, long, 1)
             .then((rest) => {
               card = new this.card(2, rest.name, defaultimage, null, rest.rating, null, null, rest.url, null, null, rest.location, null, rest.latitude, rest.longitude);
-              resolve(card);
+              db.newTodo(card, lat, long);
+              resolve(true);
             })
             .catch((error) => { reject(error) });
           break;
@@ -78,7 +65,8 @@ module.exports = {
           search.moviesearch(todo, process.env.IMDBKEY)
             .then((media) => {
               card = new this.card(1, media.title, media.image, null, media.rating, null, null, null, null, null, null, null, null, null);
-              resolve(card);
+              db.newTodo(card, lat, long);
+              resolve(true);
             })
             .catch((error) => { reject(error) });
           break;
@@ -86,8 +74,9 @@ module.exports = {
         case "product":
           search.googlesearch(todo, "amazon.ca", 1)
             .then((url) => {
-              card = new this.card(4, todo, null, null, null, null, null, url.pop(), null, null, null, null, null, null);        
-              resolve(card);
+              card = new this.card(4, todo, null, null, null, null, null, url.pop(), null, null, null, null, null, null);
+              db.newTodo(card, lat, long);       
+              resolve(true);
             })
             .catch((error) => {
               reject(error)
