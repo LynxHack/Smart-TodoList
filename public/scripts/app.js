@@ -6,64 +6,6 @@ $(document).ready(function() {
   // 4 : 'product_todos'
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
-
-    return card = "<div class=\"card\" id=\"" + todoObject.todo_name + "\">" +
-                    "<img class=\"card-img-top\" src=\"" + "http://via.placeholder.com/80x60" + "\"/>" +
-                    "<div class=\"card-body\">" +
-                      "<h4 class=\"card-title\">" + todoObject.todo_name + "</h4>" +
-                      "<p class=\"card-text\">Dummie Text</p>" +
-                      "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
-                      "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
-                      "<label class=\"is_done_label\"> </label>"
-                    "</div>" +
-                  "<div>" ;
-
-
-  }
-
-  function appendCard(text) {
-    console.log($(".new_todo_input").val());
-    if(text){
-      console.log(text);
-      $(".movies").append(createTodoElement({}));
-    } else {
-      console.log("there");
-    }
-  }
-
-
-   $('.alert').hide();
-
-  $(".btn_submit").click(function() {
-    //perform ajax post request
-    console.log($(".new_todo_input").val());
-    var textboxval = $(".new_todo_input").val();
-    appendCard(textboxval);
-
-    const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
-      const lat  = position.coords.latitude;
-      const long = position.coords.longitude;
-      $.ajax({datatype: "json",
-      url: '/todos',
-      data: {text: textboxval,lat: lat , long: long},
-      type: 'POST',
-      success: function(responseData, textStatus, jqXHR) {
-          appendCard(textboxval);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-          console.log(errorThrown);
-      }
-    });
-
-    $('.btn_submit').removeAttr("data-dismiss");
-      if(!$(".new_todo_input").val()){
-        $('.alert').show();
-      } else {
-        $(".alert").hide();
-        $(".new_todo_input").val("");
-        $('.btn_submit').attr("data-dismiss", "modal");
-      }
-  });
     switch (todoObject.type_id){
       case 1:
         return card = "<div class=\"card\">" +
@@ -120,8 +62,44 @@ $(document).ready(function() {
         "</div>" +
       "<div>" ;
     }
-  });
+  }
 
+
+   $('.alert').hide();
+
+   $(".btn_submit").click(function() {
+    //perform ajax post request
+    console.log($(".new_todo_input").val());
+    var textboxval =$(".new_todo_input").val();
+    const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
+      const lat  = position.coords.latitude;
+      const long = position.coords.longitude;
+      console.log(textboxval);
+      $.ajax({datatype: "json", 
+      url: '/todos', 
+      data: {text: textboxval,lat: lat , long: long}, 
+      type: 'POST',
+      success: function(responseData, textStatus, jqXHR) {
+          console.log(responseData);
+          appendCard(responseData);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+      }
+    });
+
+
+    });
+
+    $('.btn_submit').removeAttr("data-dismiss");
+    if(!$(".new_todo_input").val()){
+      $('.alert').show();
+    } else {
+      $(".alert").hide();
+      $(".new_todo_input").val("");
+      $('.btn_submit').attr("data-dismiss", "modal");
+    }
+  })
   // 1 : 'media_todos',
   // 2 : 'restaurant_todos',
   // 3 : 'book_todos',

@@ -2,30 +2,20 @@
 <html lang="en">
   <head>
     <title>Home Page</title>
-
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
     <!-- Boostrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-
     <script type="text/javascript" src="/scripts/app.js"></script>
-
     <script type="text/javascript" src="/scripts/animations.js"></script>
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
   </head>
-
   <body>
     <nav id="nav_bar">
       <!-- <span class="hiddenName">TODO List</span> -->
@@ -36,55 +26,24 @@
       <a href="#products_image" id="product_menu_link">To Buy</a>
       <a href="#books_image" id="book_menu_link">To Read</a>
       <a href="#food_image" id="food_menu_link">To Eat</a>
-
       <div class="dropdown">
         <a id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           More Todo
           <span class="caret"></span></a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-
-
           <!-- <li><a taga-toggle="modal" data-target="#myModal">Add Todo</a></li> -->
-
           <li><a data-toggle="modal" data-target="#myModal_add">Add Todo</a></li>
           <li><a data-toggle="modal" data-target="#myModal_login">Log in</a></li>
           <li><a href="">Register</a></li>
         </ul>
       </div>
     </nav>
-
     <main class="container">
       <div id="movies_image">
         <h1 class="image_text"> Films/Series To Watch </h2>
       </div>
       <div class="movies">
-
-        <div class="card" >
-
-        <!-- <div class="card card_movie" id="movie_test">
-            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
-            <div class="card-body">
-              <h4 class="card-title">Placeholder</h4>
-              <p class="card-text"> Dummie text </p>
-              <button class="btn btn-info btn-info-edit">Edit</button>
-              <button class="btn btn-danger btn-danger-edit">Delete</button>
-              <label class="is_done_label"> </label>
-            </div>
-        </div> -->
-
-      </div>
-
-      <!-- Start of Products Section -->
-      <div id="products_image">
-        <h1 class="image_text"> Products To Buy </h2>
-      </div>
-      <div class="products">
-
-        <!--
-        <div class="card" >
-=======
-        <div class="card card_product" id="product_test">
->>>>>>> client_side_data_manipulation
+        <div class="card card_movie" id="movie_test">
             <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
             <div class="card-body">
               <h4 class="card-title">Placeholder</h4>
@@ -94,17 +53,29 @@
               <label class="is_done_label"> </label>
             </div>
         </div>
-      -->
-
+      </div>
+      <!-- Start of Products Section -->
+      <div id="products_image">
+        <h1 class="image_text"> Products To Buy </h2>
+      </div>
+      <div class="products">
+        <div class="card card_product" id="product_test">
+            <img class="card-img-top" src="http://via.placeholder.com/80x60"/>
+            <div class="card-body">
+              <h4 class="card-title">Placeholder</h4>
+              <p class="card-text"> Dummie text </p>
+              <button class="btn btn-info btn-info-edit">Edit</button>
+              <button class="btn btn-danger btn-danger-edit">Delete</button>
+              <label class="is_done_label"> </label>
+            </div>
+        </div>
       </div>
       <!-- End of Product Section -->
-
       <!-- Start of Book Section -->
       <div id="books_image">
         <h1 class="image_text"> Books To Read </h2>
       </div>
       <div class="books" id="book_test">
-
         <!--
         <div class="card" >
 =======
@@ -120,16 +91,13 @@
             </div>
         </div>
       -->
-
       </div>
       <!-- End of Book Section -->
-
       <!-- Start of Food Section -->
       <div id="food_image">
         <h1 class="image_text"> Restaurants&Cafes To Eat</h2>
       </div>
       <div class="food" id="food_test">
-
         <!--
         <div class="card" >
 =======
@@ -145,22 +113,17 @@
             </div>
         </div>
       -->
-
       </div>
       <!-- End of Food Section -->
-
       <footer>
         <p style="color:white"> some copyright crap </p>
       </footer>
-
     </main>
-
     <!-- Extra forms hiding  -->
     <!--  -->
     <!--  -->
     <!--  -->
     <!--  -->
-
     <!-- Adding New Todo Form -->
     <div class="modal fade" id="myModal_add" role="dialog">
       <div class="alert alert-danger toggle">
@@ -186,7 +149,6 @@
         </div>
       </div>
     </div>
-
     <!-- Adding log in popup NOT WORKING-->
     <div class="modal fade" id="myModal_login" role="dialog">
       <div class="modal-dialog">
@@ -208,7 +170,6 @@
         </div>
       </div>
     </div>
-
     <!-- Register popup NOT WORKING  -->
     <div class="modal fade" id="myModal_login" role="dialog">
       <div class="modal-dialog">
@@ -230,11 +191,9 @@
         </div>
       </div>
     </div>
-
   <!-- Edit cards' idDone/type/description -->
   <div class="modal fade" id="myModal_card_edit" role="dialog">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
         <form action="" method="PUT">
@@ -242,7 +201,6 @@
             <button type="button" class="close " data-dismiss="modal">&times;</button>
             <h4>Edit Your Todos</h4>
           </div>
-
           <div class="modal-body modal_body_edit_edit">
             <div class="modal-body_input">
               <h6 class="rename_todo_h6"> Rename Your Todo:</h6>
@@ -274,16 +232,12 @@
           </div>
         </form>
       </div>
-
     </div>
   </div>
-
-
   <!-- Delete confirming -->
   <!-- Modal -->
   <div class="modal fade" id="myModal_delete" role="dialog">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header delete_modal_edit_header">
@@ -297,26 +251,7 @@
           <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
         </div>
       </div>
-
     </div>
   </div>
-
-
-
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

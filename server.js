@@ -117,13 +117,8 @@ var test9 = 'fresh slice';
 var wolframkey = process.env.WOLFRAMKEY;
 
 // Test function call
-<<<<<<< HEAD
-categorize(test0, wolframkey)
-.then((result) => {console.log("this one")});
-=======
 // categorize(test0, wolframkey)
-// .then((result) => {console.log(result)});
->>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
+// .then((result) => {console.log("this one")});
 
 // Identifiers for each category
 const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];

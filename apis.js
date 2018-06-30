@@ -9,13 +9,8 @@ function yelpsearch(rest_name, lat, long, numitems){
     var options = {
       url: `https://api.yelp.com/v3/businesses/search?term=${restaurantname}&latitude=${lat}&longitude=${long}&limit=${numitems}`,
       headers: {
-<<<<<<< HEAD
         'User-Agent': 'request',
         'Authorization': `Bearer ${process.env.YELPKEY}`
-=======
-        'User-Agent': 'request',  
-        'Authorization': `Bearer ${yelpkey}`
->>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
       },
     };
     request(options, function(err, res, body){
@@ -30,8 +25,8 @@ function yelpsearch(rest_name, lat, long, numitems){
       const url = data.businesses[0].url;
       resolve({name, location, rating, url, latitude, longitude});
     });
-<<<<<<< HEAD
-  }
+  })
+}
 
   //var moviename = 'titanic';
   //moviesearch(moviename, imdbkey);
@@ -62,29 +57,6 @@ function yelpsearch(rest_name, lat, long, numitems){
   // Test function call
   // categorize(test0, wolframkey)
   // .then((result) => {console.log(result)});
-=======
-  })
-}
-
-var imdbkey = process.env.IMDBKEY;
-function moviesearch(moviestring, imdbkey){
-  return new Promise((resolve, result) => {
-      const moviename = moviestring.split(' ').join('+');
-      request(`http://omdbapi.com/?t=${moviename}&apikey=${imdbkey}`, function (error, response, body) {
-        if(error) reject(error);
-        const result = JSON.parse(response.body);
-        const title = result.Title;
-        const image = result.Poster;
-        const rating = result.imdbRating;
-        const url = result.Website;
-        const runtime = result.Runtime;
-        const production = result.Production;
-        resolve({title, image, rating, url, runtime, production});;  
-      });
-    });
-  };
-  
->>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
 
   // Identifiers for each category
   const store   = ['financ', 'restaurant', 'food', 'eat', 'company', 'lunch', 'dinner', 'dine', 'breakfast'];
@@ -151,14 +123,10 @@ function moviesearch(moviestring, imdbkey){
       });
     })
   }
-<<<<<<< HEAD
   //below is deprecated since it now passes back promises
   //booksearch('Pride and Prejudice', goodreadskey);
 
 
-=======
-  
->>>>>>> 450a8f40a1721e70f60191e1e25b41f46518082c
   const scraper = require('google-search-scraper');
   function googlesearch(searchstring, searchsite, numresults){
     return new Promise(function(resolve, reject){
