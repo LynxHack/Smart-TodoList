@@ -42,11 +42,14 @@ router.post('/', function (req, res) {
 
 // edit todo
 router.put('/:hash', function (req, res) {
-  todo.changeCategory(req.body.name, req.body.category)
+  console.log(req.body);
+  db.deleteTodo(req.params.hash);
+  todo.generatecard(req.body.name, req.body.category, req.body.lat, req.body.long)
   .then((card) => {
-    res.send(card);
-    db.deleteTodo(req.params.hash);
+    console.log("this is the card" , card);
+    res.send(200, 'successfully updated card');
   })
+  .catch((error) => {console.log(error)});
   
 })
 
@@ -61,7 +64,7 @@ router.post('/:hash/isdone', function (req, res) {
 // delete todo
 router.delete('/:hash', function (req, res) {
   db.deleteTodo(req.params.hash);
-  res.send(200, 'Success Deleted Record');
+  res.send(200, 'Successfully Deleted Record');
 })
 
 

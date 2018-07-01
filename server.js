@@ -52,10 +52,6 @@ app.get("/", (req, res) => {
 
 // });
 
-app.post("/:newtodo", (req, res)=>{
-  console.log('hi');
-});
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

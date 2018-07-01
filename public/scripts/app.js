@@ -157,6 +157,7 @@ $(document).ready(function() {
       $(".btn_delete_confirmation").on('click', function(e) {
         currCardDelete.remove();
         console.log(currCardDelete.attr('id'));
+        $('#' + currCardDelete.attr('id')).remove();
         $.ajax({datatype: "json",
           url: '/todos/' + currCardDelete.attr('id'),
           type: 'DELETE',
@@ -167,7 +168,6 @@ $(document).ready(function() {
               console.log(errorThrown);
           }
         });
-        $('#' + currCardDelete.attr('id')).remove();
       });
     });
 
@@ -179,19 +179,12 @@ $(document).ready(function() {
       currCardId = e.currentTarget.parentElement.parentElement.id;
       currCard = $('#' + currCardId);
 
-      console.log(currCard);
-
       $('.btn-card-update').click(function(e) {
-        // Updating new name if its not empty
-        if($(".rename_todo").val()){
-          currCard.find('.card-title').text($(".rename_todo").val());
-        }
-
         // Updating is_done, if its not done default to red
         var btnVal = $('input[name=optradio]:checked').val();
         console.log(btnVal);
         if(Number(btnVal) === 1){
-          $(currCard.find(".is_done_label")).css("border-bottom", "10px lightgreen solid");//toggleclass
+          $(currCard.find(".is_done_label")).css("border-bottom", "10px lightgreen solid"); //toggleclass
           //currCard.parent().remove(cur);
           console.log(currCardId);
           currCard.parent().append(currCard);
@@ -222,23 +215,69 @@ $(document).ready(function() {
         else {
         }
 
-        // Updating category
-        var selectionResult = $('.form-control option:selected').val();
-        switch(selectionResult){
-          case "movie_sele":
-            $("div.movies").append(currCard);
-            break;
-          case "product_sele":
-            $("div.products").append(currCard);
-            break;
-          case "book_sele":
-            $("div.books").append(currCard);
-            break;
-          case "food_sele":
-            $("div.food").append(currCard);
-            break;
-          default:
-            break;
+
+        // // Updating new name if its not empty
+        // if($(".rename_todo").val()){
+        //   currCard.find('.card-title').text($(".rename_todo").val());
+        // }
+
+        editEvents('movies');
+        editEvents('products');
+        editEvents('books');
+        editEvents('food');
+
+        // Updating category if it's different from current category
+        var menumap = {
+          "movies" : "movie_sele",
+          "products" : "product_sele",
+          "books" : "book_sele",
+          "food" : "food_sele"
+        }
+
+        var inversemap = {
+          "movie_sele" : "movie_tv",
+          "product_sele" : "product",
+          "book_sele" : "book",
+          "food_sele" : "store" 
+        }
+
+        var catemap = {
+          "movies" : "movie_tv",
+          "products" : "product",
+          "books" : "book",
+          "food" : "store" 
+        }
+
+        if(($('.form-control option:selected').val()!= "none" &&$('.form-control option:selected').val() && $('.form-control option:selected').val()!=menumap[cate]) || $(".rename_todo").val()){
+          console.log("making edit request");
+          let newname = $(".rename_todo").val() ? $(".rename_todo").val() : currCard[0].innerText.split('\n')[1];
+          let newcate = $('.form-control option:selected').val()!=menumap[cate] ? inversemap[$('.form-control option:selected').val()] : catemap[cate];
+          console.log("new category and name", newcate, newname);
+          const usercoordinate = navigator.geolocation.getCurrentPosition((position) => {
+            const lat  = position.coords.latitude;
+            const long = position.coords.longitude;
+            $.ajax({datatype: "json",
+            url: "/todos/" + currCard.attr('id'),
+            data: {name: newname, category: newcate, lat: lat, long: long},
+            type: 'PUT',
+            success: function(responseData, textStatus, jqXHR) {
+                $(".card").remove();
+                $.ajax({datatype: "json",
+                url: '/todos',
+                type: 'GET',
+                success: function(responseData, textStatus, jqXHR) {
+                    responseData.result.forEach((x) => {appendCard(x)});
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+            });
+          });
         }
 
         // Clear out fields
@@ -257,7 +296,6 @@ $(document).ready(function() {
     $("." + cate).on('click', ".btn_add_close", function() {
       $(".alert").hide();
     });
-
   }
 
   editEvents('movies');

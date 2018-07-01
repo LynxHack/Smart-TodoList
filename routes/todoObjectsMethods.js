@@ -41,7 +41,6 @@ module.exports = {
 
   generatecard: function (todo, category, lat, long) {
     return new Promise((resolve, reject) => {
-
       let randomHash = require('crypto').createHash('sha256').update(`todo${moment().format()}`).digest('hex');
       let card = {};
       switch (category) {
@@ -88,59 +87,8 @@ module.exports = {
           break;
 
         default:
-          resolve("Failed to identify cateogory");
+          reject("Failed to identify cateogory");
       }
     });
   },
-
-  changeCategory: function (todo, category) {
-
-    let randomHash = require('crypto').createHash('sha256').update(`todo${moment().format()}`).digest('hex');
-    switch (category) {
-      case "book":
-        search.booksearch(todo, process.env.GOODREADSKEY)
-          .then((book) => {
-            card = new this.card(3, book.title, book.image, null, book.rating, null, null, book.url, null, book.author, null, false, null, null, randomHash);
-            db.newTodo(card, lat, long);
-            resolve(card);
-          })
-          .catch((error) => { reject(error) });
-        break;
-
-      case "store":
-        search.yelpsearch(todo, lat, long, 1)
-          .then((rest) => {
-            card = new this.card(2, rest.name, defaultimage, null, rest.rating, null, null, rest.url, null, null, rest.location, null, rest.latitude, rest.longitude, randomHash);
-            db.newTodo(card, lat, long);
-            resolve(card);
-          })
-          .catch((error) => { reject(error) });
-        break;
-
-      case "movie_tv":
-        search.moviesearch(todo, process.env.IMDBKEY)
-          .then((media) => {
-            card = new this.card(1, media.title, media.image, null, media.rating, null, null, null, null, null, null, null, null, null, randomHash);
-            db.newTodo(card, lat, long);
-            resolve(card);
-          })
-          .catch((error) => { reject(error) });
-        break;
-
-      case "product":
-        search.walmartsearch(todo)
-          .then((prod) => {
-            card = new this.card(4, prod.name, prod.image, null, prod.rating, prod.description, prod.price, prod.url, null, null, null, null, null, null, randomHash);
-            db.newTodo(card, lat, long);
-            resolve(card);
-          })
-          .catch((error) => {
-            reject(error)
-          });
-        break;
-
-      default:
-        resolve("Failed to identify cateogory");
-    }
-  }
 }
