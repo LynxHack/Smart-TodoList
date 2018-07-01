@@ -53,7 +53,7 @@ router.put('/:hash', function (req, res) {
 
 // toggle is_done bool
 router.post('/:hash/isdone', function (req, res) {
-  db.toggleIsDoneTodo();
+  db.toggleIsDoneTodo(req.params.hash);
   res.redirect(200, '/');
 })
 

@@ -58,7 +58,7 @@ module.exports = {
         case "store":
           search.yelpsearch(todo, lat, long, 1)
             .then((rest) => {
-              card = new this.card(2, rest.name, defaultimage, null, rest.rating, null, null, rest.url, null, null, rest.location, null, rest.latitude, rest.longitude, randomHash);
+              card = new this.card(2, rest.name, defaultimage, null, rest.rating, null, null, rest.url, null, null, rest.location, false, rest.latitude, rest.longitude, randomHash);
               db.newTodo(card, lat, long);
               resolve(card);
             })
@@ -68,7 +68,7 @@ module.exports = {
         case "movie_tv":
           search.moviesearch(todo, process.env.IMDBKEY)
             .then((media) => {
-              card = new this.card(1, media.title, media.image, null, media.rating, null, null, null, null, null, null, null, null, null, randomHash);
+              card = new this.card(1, media.title, media.image, null, media.rating, null, null, null, null, null, null, false, null, null, randomHash);
               db.newTodo(card, lat, long);
               resolve(card);
             })
@@ -78,7 +78,7 @@ module.exports = {
         case "product":
           search.walmartsearch(todo)
             .then((prod) => {
-              card = new this.card(4, prod.name, prod.image, null, prod.rating, prod.description, prod.price, prod.url, null, null, null, null, null, null, randomHash);
+              card = new this.card(4, prod.name, prod.image, null, prod.rating, prod.description, prod.price, prod.url, null, null, null, false, null, null, randomHash);
               db.newTodo(card, lat, long);
               resolve(card);
             })

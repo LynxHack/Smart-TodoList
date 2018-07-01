@@ -16,6 +16,11 @@ $(document).ready(function() {
   // This function is for creating cards for each todo
   function createTodoElement(todoObject) {
     console.log(todoObject);
+    let is_done_footer = "<label class=\"is_done_label border_red\"></label>";
+    console.log(todoObject.is_done);
+    if(todoObject.is_done){
+      is_done_footer = "<label class=\"is_done_label border-green\"></label>";
+    }
     switch (todoObject.types_id){
       case 1:
         return card = "<div class=\"card\" id=\"" + todoObject.hash + "\">" +
@@ -28,7 +33,7 @@ $(document).ready(function() {
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
-          "<label class=\"is_done_label\"></label>" +
+          is_done_footer +
         "</div>" +
       "<div>" ;
 
@@ -43,7 +48,7 @@ $(document).ready(function() {
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
-          "<label class=\"is_done_label\"></label>" +
+          is_done_footer +
         "</div>" +
       "<div>" ;
 
@@ -59,7 +64,7 @@ $(document).ready(function() {
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
-          "<label class=\"is_done_label\"></label>" +
+          is_done_footer +
         "</div>" +
       "<div>" ;
 
@@ -74,6 +79,7 @@ $(document).ready(function() {
         "</ul>" +
         "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
         "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+        is_done_footer +
       "</div>" +
     "<div>" ;
 
@@ -85,6 +91,7 @@ $(document).ready(function() {
           "<p class=\"card-text\">Dummie Text</p>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
           "<button class=\"btn btn-danger btn-danger-edit\">Delete</button>" +
+          is_done_footer +
         "</div>" +
       "<div>" ;
     }
@@ -154,13 +161,13 @@ $(document).ready(function() {
           url: '/todos/' + currCardDelete.attr('id'),
           type: 'DELETE',
           success: function(responseData, textStatus, jqXHR) {
-              appendCard(responseData);
+              console.log("Successfully deleted!");
           },
           error: function(jqXHR, textStatus, errorThrown) {
               console.log(errorThrown);
           }
         });
-        $('#' + $(currCardDelete).id).remove();
+        $('#' + currCardDelete.attr('id')).remove();
       });
     });
 
@@ -174,7 +181,7 @@ $(document).ready(function() {
 
       console.log(currCard);
 
-        $('.btn-card-update').click(function(e) {
+      $('.btn-card-update').click(function(e) {
         // Updating new name if its not empty
         if($(".rename_todo").val()){
           currCard.find('.card-title').text($(".rename_todo").val());
@@ -186,10 +193,33 @@ $(document).ready(function() {
         if(Number(btnVal) === 1){
           $(currCard.find(".is_done_label")).css("border-bottom", "10px lightgreen solid");//toggleclass
           //currCard.parent().remove(cur);
+          console.log(currCardId);
           currCard.parent().append(currCard);
-        } else if(Number(btnVal) === 2) {
+          $.ajax({datatype: "json",
+          url: '/todos/' + currCardId + "/isdone",
+          type: 'POST',
+          success: function(responseData, textStatus, jqXHR) {
+              console.log("Successfully set done state!");
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(errorThrown);
+          }
+          });
+        } 
+        else if(Number(btnVal) === 2) {
           $(currCard.find(".is_done_label")).css("border-bottom", "10px red solid");
-        } else {
+          $.ajax({datatype: "json",
+          url: '/todos/' + currCardId + "/isdone",
+          type: 'POST',
+          success: function(responseData, textStatus, jqXHR) {
+              console.log("Successfully set done state!");
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(errorThrown);
+          }
+          });
+        } 
+        else {
         }
 
         // Updating category

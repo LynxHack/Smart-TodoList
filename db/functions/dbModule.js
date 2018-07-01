@@ -89,8 +89,8 @@ module.exports = {
 
 
   toggleIsDoneTodo: function (hash) {
-
-    knex.raw(`UPDATE todos SET is_done = NOT is_done WHERE hash = ${hash}`)
+    console.log(hash);
+    knex.raw(`UPDATE todos SET is_done = NOT is_done WHERE hash = '${hash}'`)
       .then(function () {
         console.log(`Todo ${hash} is_done changed`);
       })
