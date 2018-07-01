@@ -50,22 +50,21 @@ module.exports = {
 
   newTodo: function (card, lat, long) {
     console.log("Func newTodo "+card);
-
     switch (card.types_id) {
       case 1:
-        createNewTodo(1, card.title, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
+        createNewTodo(1, card.name, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
         break;
 
       case 2:
-        createNewTodo(2, card.title, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
+        createNewTodo(2, card.name, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
         break;
 
       case 3:
-        createNewTodo(3, card.title, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
+        createNewTodo(3, card.name, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
         break;
 
       case 4:
-        createNewTodo(4, card.title, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
+        createNewTodo(4, card.name, card.img, card.showtime, card.rating, card.description, card.price, card.website, card.due_date, card.author, card.address, card.is_done, card.latitude, card.longitude, card.hash);
         break;
       
         default:

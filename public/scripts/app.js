@@ -149,7 +149,18 @@ $(document).ready(function() {
       var currCardDelete = $(this).closest(".card");
       $(".btn_delete_confirmation").on('click', function(e) {
         currCardDelete.remove();
-        //$('#' + cardId).remove();
+        console.log(currCardDelete.attr('id'));
+        $.ajax({datatype: "json",
+          url: '/todos/' + currCardDelete.attr('id'),
+          type: 'DELETE',
+          success: function(responseData, textStatus, jqXHR) {
+              appendCard(responseData);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(errorThrown);
+          }
+        });
+        $('#' + $(currCardDelete).id).remove();
       });
     });
 
