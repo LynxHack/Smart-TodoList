@@ -57,18 +57,18 @@ To keep track of what you have done you can edit your item and select done and t
 
 ## Front Page
 
-![index](./screenshots/index.jpg)
+![index](https://github.com/leor8/midterm_todo_list/blob/master/Screenshots/Index.JPG)
 
 ## NewTodo
 
-![newtodo](./screenshots/newtodo.jpg)
-![newbook](./screenshots/newbook.jpg)
+![newtodo](https://github.com/leor8/midterm_todo_list/blob/master/Screenshots/newtodo.JPG)
+![newbook](https://github.com/leor8/midterm_todo_list/blob/master/Screenshots/newbook.JPG)
 
 # Edit todo
 * Movie Jurassic Park
 
-![Jurassicpark Movie](./screenshots/edittodo.jpg)
+![Jurassicpark Movie](https://github.com/leor8/midterm_todo_list/blob/master/Screenshots/edittodo.JPG)
 
 * Jurrasic park movie deleted and the book is added
 
-![Jurrasic park the book](./screenshots/editedbook.jpg)
+![Jurrasic park the book](https://github.com/leor8/midterm_todo_list/blob/master/Screenshots/editedbook.JPG)
