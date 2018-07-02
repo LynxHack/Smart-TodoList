@@ -1,6 +1,6 @@
 "use strict";
 
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 var request = require('request');
 var yelpkey = process.env.YELPKEY;
 function yelpsearch(rest_name, lat, long, numitems){
