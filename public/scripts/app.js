@@ -70,7 +70,7 @@ $(document).ready(function () {
           "<div>";
 
       case 4:
-        return card = "<div class=\"card\">" +
+      return card = "<div class=\"card\" id=\"" + todoObject.hash + "\">" +
         "<div class=\"card-imgbox\"><a href=\"" + todoObject.website + "\" target=\"_blank\"><img class=\"card-img-top\" src=" + todoObject.img + "></a></div>" +
           "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
@@ -158,7 +158,7 @@ $(document).ready(function () {
       var currCardDelete = $(this).closest(".card");
       $(".btn_delete_confirmation").on('click', function (e) {
         currCardDelete.remove();
-        console.log(currCardDelete.attr('id'));
+        console.log(currCardDelete);
         $('#' + currCardDelete.attr('id')).remove();
         $.ajax({
           datatype: "json",
@@ -226,10 +226,10 @@ $(document).ready(function () {
         //   currCard.find('.card-title').text($(".rename_todo").val());
         // }
 
-        editEvents('movies');
-        editEvents('products');
-        editEvents('books');
-        editEvents('food');
+        // editEvents('movies');
+        // editEvents('products');
+        // editEvents('books');
+        // editEvents('food');
 
         // Updating category if it's different from current category
         var menumap = {
