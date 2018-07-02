@@ -42,7 +42,6 @@ app.use("/todos", todosRoutes);
 // Home page
 app.get("/", (req, res) => {
   db.getAllTodo((err, result) => {
-    console.log('Result just before res.render' + JSON.stringify(result)); 
     res.render("index", {result: JSON.stringify(result)});
   })
 });

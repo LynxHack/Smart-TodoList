@@ -10,7 +10,6 @@ require('dotenv').config();
 // get all todos
 router.get('/', function (req, res) {
   db.getAllTodo((err, result) => {
-    console.log(result);
     res.json({ err: err, result: result });
   });
 });
@@ -42,11 +41,9 @@ router.post('/', function (req, res) {
 
 // edit todo
 router.put('/:hash', function (req, res) {
-  console.log(req.body);
   db.deleteTodo(req.params.hash);
   todo.generatecard(req.body.name, req.body.category, req.body.lat, req.body.long)
   .then((card) => {
-    console.log("this is the card" , card);
     res.send(200, 'successfully updated card');
   })
   .catch((error) => {console.log(error)});
