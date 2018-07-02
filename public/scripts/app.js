@@ -29,7 +29,7 @@ $(document).ready(function () {
           "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
           "<ul class=\"list-group list-group-flush\">" +
-          "<li class=\"list-group-item\"> Nearest Location: " + todoObject.address + "</li>" +
+          "<li class=\"list-group-item\"> </li>" +
           "<li class=\"list-group-item\"> Ratings: " + todoObject.rating + "/10</li>" +
           "</ul>" +
           "<button class=\"btn btn-info btn-info-edit\">Edit</button>" +
@@ -71,7 +71,7 @@ $(document).ready(function () {
 
       case 4:
         return card = "<div class=\"card\">" +
-          "<div class=\"card-imgbox\"><img class=\"card-img-top\" src=" + todoObject.img + "></div>" +
+        "<div class=\"card-imgbox\"><a href=\"" + todoObject.website + "\" target=\"_blank\"><img class=\"card-img-top\" src=" + todoObject.img + "></a></div>" +
           "<div class=\"card-body\">" +
           "<h4 class=\"card-title\">" + todoObject.name + "</h4>" +
           "<ul class=\"list-group list-group-flush\">" +
